@@ -42,6 +42,7 @@ module.exports = async (req, res, next) => {
     req.user = user;
 
     return next();
+
   } catch (error) {
     console.error(error);
     return res.status(error.status).json(error.message);

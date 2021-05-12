@@ -3,10 +3,13 @@ const { usersRepository } = require("../../repositories");
 module.exports.list = async (options) => {
   console.log(options);
   const query = {};
+  query.where = []
 
   if (options.name && options.name !== "") {
-    query.where = { name: options.name };
+    query.where.push({ name: options.name });
   }
+
+  query.where.push({ is_deleted: false })
 
   const { count, rows } = await usersRepository.list(query);
 
