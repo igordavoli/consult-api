@@ -21,16 +21,3 @@ router.get("/", usersController.list);
 //router.patch("/:id/manage", usersController.toAdmin);
 
 module.exports.users = router;
-
-/*
-endpoints de profissional
-cadastro
-login
-profile details
-profile update
-profile delete
-listar consultas agendadas da semana/mes
-listar solicitações de consultas (ver se não é antes da data atual)
-aceitar solicitação e buscar dados do usuário para entrar em contato
-recusar solicitação
-*/

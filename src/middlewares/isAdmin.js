@@ -4,8 +4,6 @@ const { messages } = require("../helpers");
 module.exports = async (req, res, next) => {
   try {
 
-    console.log(req.user)
-
     if (!req.user.isAdmin) {
       throw {
         status: StatusCodes.UNAUTHORIZED,

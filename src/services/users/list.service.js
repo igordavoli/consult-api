@@ -1,7 +1,6 @@
 const { usersRepository } = require("../../repositories");
 
 module.exports.list = async (options) => {
-  console.log(options);
   const query = {};
   query.where = []
 

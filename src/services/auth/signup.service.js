@@ -11,7 +11,7 @@ module.exports.signup = async (email, name, password) => {
   if (hasUserEmail) {
     throw {
       status: StatusCodes.CONFLICT,
-      message: messages.alreadyExists('email'),
+      message: messages.alreadyExists("email"),
     };
   }
 
