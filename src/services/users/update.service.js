@@ -24,26 +24,17 @@ module.exports.update = async (user) => {
     };
   }
 
-  const resp = {};
+  Object.assign(storedUser, user);
 
   if (user.newPassword) {
-    storedUser.email = user.email;
-    storedUser.name = user.name;
     storedUser.password = user.newPassword;
-    storedUser.isDeleted = user.isDeleted;
-
-    resp.updatedUser = await usersRepository.update(storedUser);
-  } else {
-    storedUser.email = user.email;
-    storedUser.name = user.name;
-    storedUser.isDeleted = user.isDeleted;
-
-    resp.updatedUser = await usersRepository.update(storedUser);
   }
 
+  const updatedUser = await usersRepository.update(storedUser);
+
   const payload = {
-    id: resp.updatedUser.id,
-    email: resp.updatedUser.email,
+    id: updatedUser.id,
+    email: updatedUser.email,
   };
 
   const sign = promisify(jwt.sign);
@@ -52,6 +43,6 @@ module.exports.update = async (user) => {
 
   return {
     token,
-    user: resp.updatedUser,
+    user: updatedUser,
   };
 };

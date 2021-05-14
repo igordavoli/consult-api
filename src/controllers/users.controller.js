@@ -51,7 +51,9 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { user } = req.body;
+
       const { paramsUserId } = req;
+
       user.id = paramsUserId;
 
       const schema = yup.object().shape({
@@ -102,30 +104,40 @@ module.exports = {
 
 };
 
-// toAdmin: async (req, res) => {
-//   try {
+/*
+ * toAdmin: async (req, res) => {
+ *   try {
+ */
 
-//     const { isAdmin } = req.body;
-//     const id = Number(req.params.id);
+/*
+ *     const { isAdmin } = req.body;
+ *     const id = Number(req.params.id);
+ */
 
-//     const userData = { id, isAdmin }
-//     const schema = yup.object().shape({
-//       id: yup.number().required(),
-//       isAdmin: yup.boolean().required(),
-//     })
+/*
+ *     const userData = { id, isAdmin }
+ *     const schema = yup.object().shape({
+ *       id: yup.number().required(),
+ *       isAdmin: yup.boolean().required(),
+ *     })
+ */
 
-//     await schema.validate(userData, {
-//       abortEarly: false,
-//       stripUnknown: true,
-//     });
+/*
+ *     await schema.validate(userData, {
+ *       abortEarly: false,
+ *       stripUnknown: true,
+ *     });
+ */
 
-//     const adminUser = await usersService.toAdmin(userData);
-//     res.status(StatusCodes.OK).json(adminUser);
-//   } catch (error) {
-//     console.log(error);
-//     return res
-//       .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
-//       .json(error.message);
-//   }
+/*
+ *     const adminUser = await usersService.toAdmin(userData);
+ *     res.status(StatusCodes.OK).json(adminUser);
+ *   } catch (error) {
+ *     console.log(error);
+ *     return res
+ *       .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+ *       .json(error.message);
+ *   }
+ */
 
 // }
