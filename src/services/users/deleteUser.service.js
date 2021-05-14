@@ -1,6 +1,6 @@
-const { StatusCodes } = require("http-status-codes");
-const { encryptor, messages } = require("../../helpers");
-const { usersRepository } = require("../../repositories");
+const { StatusCodes } = require('http-status-codes');
+const { encryptor, messages } = require('../../helpers');
+const { usersRepository } = require('../../repositories');
 
 module.exports.deleteUser = async (id, password) => {
   const storedUser = await usersRepository.getById(id);
@@ -8,7 +8,7 @@ module.exports.deleteUser = async (id, password) => {
   if (!storedUser) {
     throw {
       status: StatusCodes.NOT_FOUND,
-      message: messages.notFound("user"),
+      message: messages.notFound('user'),
     };
   }
 

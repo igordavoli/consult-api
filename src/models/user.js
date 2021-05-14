@@ -1,9 +1,9 @@
-const { encryptor } = require("../helpers");
-const { v4 } = require("uuid");
+const { encryptor } = require('../helpers');
+const { v4 } = require('uuid');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       id: {
         primaryKey: true,
@@ -14,41 +14,42 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       isAdmin: {
         type: DataTypes.BOOLEAN,
-        field: "is_admin",
+        field: 'is_admin',
       },
       createdAt: {
         type: DataTypes.DATE,
-        field: "created_at",
+        field: 'created_at',
       },
       updatedAt: {
         type: DataTypes.DATE,
-        field: "updated_at",
+        field: 'updated_at',
       },
       isDeleted: {
         type: DataTypes.BOOLEAN,
-        field: "is_deleted",
-      }
+        field: 'is_deleted',
+      },
     },
-    {
-      tableName: "users",
-    }
+    { tableName: 'users' },
   );
 
   User.beforeSave(async (user, options) => {
     const password = await encryptor.hashPassword(user.password);
-    if (user.changed("password")) {
+
+    if (user.changed('password')) {
       Object.assign(user, { password });
     }
     if (!user.id) {
       user.id = v4();
     }
+
     return user;
   });
 
-  User.prototype.toJSON = function () {
+  User.prototype.toJSON = function() {
     const user = { ...this.get() };
+
     return Object.fromEntries(
-      Object.entries(user).filter(([key]) => !["password"].includes(key))
+      Object.entries(user).filter(([key]) => !['password'].includes(key)),
     );
   };
 

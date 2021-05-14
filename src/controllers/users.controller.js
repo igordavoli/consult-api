@@ -1,12 +1,14 @@
-const { StatusCodes } = require("http-status-codes");
-const { usersService } = require("../services");
-const { messages } = require("../helpers");
-const yup = require("yup");
+/* eslint-disable object-shorthand */
+const { StatusCodes } = require('http-status-codes');
+const { usersService } = require('../services');
+const { messages } = require('../helpers');
+const yup = require('yup');
 
 module.exports = {
   list: async (req, res) => {
     try {
       const { name } = req.query;
+
       const response = await usersService.list({ name });
 
       if (!response || response.data.length === 0) {
@@ -16,15 +18,18 @@ module.exports = {
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.log(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
   },
-  account: async (req, res) => {
+  account: (req, res) => {
     try {
       const paramsUserId = req.params.id;
+
       const tokenUserId = req.user.id;
+
       const isSameUser = paramsUserId === tokenUserId;
 
       if (!isSameUser) {
@@ -34,10 +39,10 @@ module.exports = {
         };
       }
 
-      res.status(StatusCodes.OK).json({ user: req.user })
-
+      return res.status(StatusCodes.OK).json({ user: req.user });
     } catch (error) {
       console.log(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -46,13 +51,13 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { user } = req.body;
-      const paramsUserId = req.paramsUserId;
-
+      const { paramsUserId } = req;
       user.id = paramsUserId;
 
       const schema = yup.object().shape({
         id: yup.string().required(),
-        email: yup.string().required().email(),
+        email: yup.string().required()
+          .email(),
         name: yup.string().required(),
         password: yup.string().required(),
         newPassword: yup.string(),
@@ -65,33 +70,35 @@ module.exports = {
 
       const updatedUser = await usersService.update(user);
 
-      res.status(StatusCodes.CREATED).json(updatedUser);
-
+      return res.status(StatusCodes.CREATED).json(updatedUser);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
   },
 
-  async delete(req, res) {
+  delete: async (req, res) => {
     try {
-      const password = req.body.password;
+      const { password } = req.body;
+
       const userId = req.paramsUserId;
 
       await usersService.deleteUser(userId, password);
 
-      res.status(StatusCodes.NO_CONTENT).json({});
-
+      return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
-  }
-
+  },
 
 };
 
@@ -113,9 +120,7 @@ module.exports = {
 //     });
 
 //     const adminUser = await usersService.toAdmin(userData);
-
 //     res.status(StatusCodes.OK).json(adminUser);
-
 //   } catch (error) {
 //     console.log(error);
 //     return res

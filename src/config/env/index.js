@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+const dotenv = require('dotenv');
 
 module.exports = {
   env: process.env.NODE_ENV,
