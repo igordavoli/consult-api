@@ -1,9 +1,14 @@
 const { encryptor } = require("../helpers");
+const { v4 } = require("uuid");
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
     {
+      id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+      },
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
@@ -19,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: "updated_at",
       },
+      isDeleted: {
+        type: DataTypes.BOOLEAN,
+        field: "is_deleted",
+      }
     },
     {
       tableName: "users",
@@ -29,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
     const password = await encryptor.hashPassword(user.password);
     if (user.changed("password")) {
       Object.assign(user, { password });
+    }
+    if (!user.id) {
+      user.id = v4();
     }
     return user;
   });

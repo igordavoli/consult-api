@@ -51,6 +51,6 @@ module.exports.update = async (user) => {
 
   return {
     token,
-    updatedUser: resp.updatedUser,
+    user: resp.updatedUser,
   };
 };

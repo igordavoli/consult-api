@@ -23,11 +23,11 @@ module.exports = {
   },
   account: async (req, res) => {
     try {
-      const paramsUserId = Number(req.params.id);
+      const paramsUserId = req.params.id;
       const tokenUserId = req.user.id;
-      const isEqual = paramsUserId === tokenUserId;
+      const isSameUser = paramsUserId === tokenUserId;
 
-      if (!isEqual) {
+      if (!isSameUser) {
         throw {
           status: StatusCodes.UNAUTHORIZED,
           message: messages.unauthorized,
@@ -46,27 +46,15 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { user } = req.body;
-
-      const paramsUserId = Number(req.params.id);
-
-      const tokenUserId = req.user.id;
-      const isEqual = paramsUserId === tokenUserId;
-
-      if (!isEqual) {
-        throw {
-          status: StatusCodes.UNAUTHORIZED,
-          message: messages.invalidPassword,
-        };
-      }
+      const paramsUserId = req.paramsUserId;
 
       user.id = paramsUserId;
 
       const schema = yup.object().shape({
-        id: yup.number().required(),
+        id: yup.string().required(),
         email: yup.string().required().email(),
         name: yup.string().required(),
         password: yup.string().required(),
-        isDeleted: yup.boolean().required(),
         newPassword: yup.string(),
       });
 
@@ -77,7 +65,7 @@ module.exports = {
 
       const updatedUser = await usersService.update(user);
 
-      res.status(StatusCodes.CREATED).json({ updatedUser })
+      res.status(StatusCodes.CREATED).json(updatedUser);
 
     } catch (error) {
       console.log(error);
@@ -86,26 +74,15 @@ module.exports = {
         .json(error.message);
     }
   },
-  toAdmin: async (req, res) => {
+
+  async delete(req, res) {
     try {
+      const password = req.body.password;
+      const userId = req.paramsUserId;
 
-      const { isAdmin } = req.body;
-      const id = Number(req.params.id);
+      await usersService.deleteUser(userId, password);
 
-      const userData = { id, isAdmin }
-      const schema = yup.object().shape({
-        id: yup.number().required(),
-        isAdmin: yup.boolean().required(),
-      })
-
-      await schema.validate(userData, {
-        abortEarly: false,
-        stripUnknown: true,
-      });
-
-      const adminUser = await usersService.toAdmin(userData);
-
-      res.status(StatusCodes.OK).json(adminUser);
+      res.status(StatusCodes.NO_CONTENT).json({});
 
     } catch (error) {
       console.log(error);
@@ -113,6 +90,37 @@ module.exports = {
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
-
   }
+
+
 };
+
+// toAdmin: async (req, res) => {
+//   try {
+
+//     const { isAdmin } = req.body;
+//     const id = Number(req.params.id);
+
+//     const userData = { id, isAdmin }
+//     const schema = yup.object().shape({
+//       id: yup.number().required(),
+//       isAdmin: yup.boolean().required(),
+//     })
+
+//     await schema.validate(userData, {
+//       abortEarly: false,
+//       stripUnknown: true,
+//     });
+
+//     const adminUser = await usersService.toAdmin(userData);
+
+//     res.status(StatusCodes.OK).json(adminUser);
+
+//   } catch (error) {
+//     console.log(error);
+//     return res
+//       .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+//       .json(error.message);
+//   }
+
+// }

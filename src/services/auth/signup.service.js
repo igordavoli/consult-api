@@ -15,22 +15,11 @@ module.exports.signup = async (email, name, password) => {
     };
   }
 
-  const hasUserName = await usersRepository.get({ name });
-
-  if (hasUserName) {
-    throw {
-      status: StatusCodes.CONFLICT,
-      message: messages.alreadyExists('name'),
-    };
-  }
-
   const storedUser = await usersRepository.create({ email, name, password });
-
   const payload = {
     id: storedUser.id,
     email: storedUser.email,
   };
-
   const sign = promisify(jwt.sign);
   const token = await sign(payload, constants.jwtToken);
 
