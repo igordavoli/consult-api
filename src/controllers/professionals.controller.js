@@ -1,6 +1,6 @@
 /* eslint-disable object-shorthand */
 const { StatusCodes } = require('http-status-codes');
-const { usersService } = require('../services');
+const { professionalsService } = require('../services');
 const { messages } = require('../helpers');
 const yup = require('yup');
 
@@ -9,7 +9,7 @@ module.exports = {
     try {
       const { name } = req.query;
 
-      const response = await usersService.list({ name });
+      const response = await professionalsService.list({ name });
 
       if (!response || response.data.length === 0) {
         return res.status(StatusCodes.NO_CONTENT).end();
@@ -24,13 +24,13 @@ module.exports = {
         .json(error.message);
     }
   },
-  account: async (req, res) => {
+  account: (req, res) => {
     try {
       const { tokenUser } = req;
       const { paramsId } = req;
       tokenUser.id = paramsId;
 
-      return res.status(StatusCodes.OK).json(tokenUser);
+      return res.status(StatusCodes.OK).json({ professional: tokenUser });
     } catch (error) {
       console.log(error);
 
@@ -41,9 +41,11 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
-      const { user } = req.body;
-      const { paramsId } = req;
-      user.id = paramsId;
+      const { professional } = req.body;
+
+      const { paramsProfessionalId } = req;
+
+      professional.id = paramsProfessionalId;
 
       const schema = yup.object().shape({
         id: yup.string().required(),
@@ -54,14 +56,14 @@ module.exports = {
         newPassword: yup.string(),
       });
 
-      await schema.validate(user, {
+      await schema.validate(professional, {
         abortEarly: false,
         stripUnknown: true,
       });
 
-      const updatedUser = await usersService.update(user);
+      const updatedProfessional = await professionalsService.update(professional);
 
-      return res.status(StatusCodes.CREATED).json(updatedUser);
+      return res.status(StatusCodes.CREATED).json(updatedProfessional);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -75,9 +77,10 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { password } = req.body;
-      const userId = req.paramsId;
 
-      await usersService.deleteUser(userId, password);
+      const professionalId = req.paramsProfessionalId;
+
+      await professionalsService.deleteProfessional(professionalId, password);
 
       return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
@@ -89,43 +92,4 @@ module.exports = {
         .json(error.message);
     }
   },
-
 };
-
-/*
- * toAdmin: async (req, res) => {
- *   try {
- */
-
-/*
- *     const { isAdmin } = req.body;
- *     const id = Number(req.params.id);
- */
-
-/*
- *     const userData = { id, isAdmin }
- *     const schema = yup.object().shape({
- *       id: yup.number().required(),
- *       isAdmin: yup.boolean().required(),
- *     })
- */
-
-/*
- *     await schema.validate(userData, {
- *       abortEarly: false,
- *       stripUnknown: true,
- *     });
- */
-
-/*
- *     const adminUser = await usersService.toAdmin(userData);
- *     res.status(StatusCodes.OK).json(adminUser);
- *   } catch (error) {
- *     console.log(error);
- *     return res
- *       .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
- *       .json(error.message);
- *   }
- */
-
-// }
