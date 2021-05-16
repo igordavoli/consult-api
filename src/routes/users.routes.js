@@ -14,8 +14,6 @@ router.patch('/:id', isSameUser, usersController.update);
 // Profile delete
 router.delete('/:id', isSameUser, usersController.delete);
 
-router.use(isAdmin);
-
 // List users
 router.get('/', usersController.list);
 

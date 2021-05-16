@@ -3,14 +3,15 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const { constants } = require('../utils');
 const { messages } = require('../helpers');
-const { usersRepository } = require('../repositories');
+const { usersRepository, professionalsRepository } = require('../repositories');
 
 module.exports = async (req, res, next) => {
   try {
+    const baseURL = req.baseUrl;
     let token;
 
     if (req.headers && req.headers.authorization) {
-      const [ scheme, credentials ] = req.headers.authorization.split(' ');
+      const [scheme, credentials] = req.headers.authorization.split(' ');
 
       if (scheme.match(/^Bearer$/i)) {
         token = credentials;
@@ -28,12 +29,13 @@ module.exports = async (req, res, next) => {
     }
 
     const verify = promisify(jwt.verify);
-
     const decoded = await verify(token, constants.jwtToken);
 
-    const user = await usersRepository.getById(decoded.id);
+    let tokenUser = baseURL.match(/professionals/i)
+      ? await professionalsRepository.getById(decoded.id)
+      : await usersRepository.getById(decoded.id);
 
-    if (!user) {
+    if (!tokenUser) {
       throw {
         status: StatusCodes.NOT_FOUND,
         message: messages.notFound('user'),
@@ -45,9 +47,10 @@ module.exports = async (req, res, next) => {
       id: decoded.id,
       email: decoded.email,
     };
-    req.user = user;
+    req.tokenUser = tokenUser;
 
     return next();
+
   } catch (error) {
     console.error(error);
 

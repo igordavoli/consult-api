@@ -3,7 +3,7 @@ const { messages } = require('../helpers');
 
 module.exports = async (req, res, next) => {
   try {
-    if (!req.user.isAdmin) {
+    if (!req.tokenUser.isAdmin) {
       throw {
         status: StatusCodes.UNAUTHORIZED,
         message: messages.unauthorized,
