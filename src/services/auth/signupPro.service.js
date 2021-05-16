@@ -2,11 +2,11 @@ const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
 const { messages } = require('../../helpers');
 const { constants } = require('../../utils');
-const { professionalRepository } = require('../../repositories');
+const { professionalsRepository } = require('../../repositories');
 const { promisify } = require('util');
 
-module.exports.signupPro = async (email, name, password) => {
-  const hasEmail = await professionalRepository.get({ email });
+module.exports.signupPro = async (email, name, password, professionalField) => {
+  const hasEmail = await professionalsRepository.get({ email });
 
   if (hasEmail) {
     throw {
@@ -15,10 +15,11 @@ module.exports.signupPro = async (email, name, password) => {
     };
   }
 
-  const storedProfessional = await professionalRepository.create({
+  const storedProfessional = await professionalsRepository.create({
     email,
     name,
     password,
+    professionalField,
   });
 
   const payload = {

@@ -100,6 +100,7 @@ module.exports = {
         email: yup.string().required().email(),
         name: yup.string().required(),
         password: yup.string().required(),
+        professionalField: yup.string().required()
       });
 
       await schema.validate(req.body, {
@@ -107,12 +108,17 @@ module.exports = {
         abortEarly: false,
       });
 
-      const { email, name, password } = req.body;
+      const { email, name, password, professionalField } = req.body;
 
-      const { storedUser, token } = await authService.signupPro(email, name, password);
+      const { storedProfessional, token } = await authService.signupPro(
+        email,
+        name,
+        password,
+        professionalField
+      );
 
       return res.status(StatusCodes.CREATED).json({
-        storedUser,
+        storedProfessional,
         token,
       });
     } catch (error) {
