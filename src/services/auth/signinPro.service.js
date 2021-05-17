@@ -27,6 +27,7 @@ module.exports.signinPro = async (email, password) => {
   const payload = {
     id: professional.id,
     email: professional.email,
+    isProfessional: true,
   };
 
   const sign = promisify(jwt.sign);

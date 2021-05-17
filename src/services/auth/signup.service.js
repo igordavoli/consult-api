@@ -24,6 +24,7 @@ module.exports.signup = async (email, name, password) => {
   const payload = {
     id: storedUser.id,
     email: storedUser.email,
+    isProfessional: false,
   };
 
   const sign = promisify(jwt.sign);

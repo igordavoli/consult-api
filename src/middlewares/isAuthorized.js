@@ -7,7 +7,6 @@ const { usersRepository, professionalsRepository } = require('../repositories');
 
 module.exports = async (req, res, next) => {
   try {
-    const baseURL = req.baseUrl;
     let token;
 
     if (req.headers && req.headers.authorization) {
@@ -29,9 +28,10 @@ module.exports = async (req, res, next) => {
     }
 
     const verify = promisify(jwt.verify);
+
     const decoded = await verify(token, constants.jwtToken);
 
-    let tokenUser = baseURL.match(/professionals/i)
+    const tokenUser = decoded.isProfessional
       ? await professionalsRepository.getById(decoded.id)
       : await usersRepository.getById(decoded.id);
 
@@ -50,7 +50,6 @@ module.exports = async (req, res, next) => {
     req.tokenUser = tokenUser;
 
     return next();
-
   } catch (error) {
     console.error(error);
 

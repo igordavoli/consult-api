@@ -5,6 +5,9 @@ const { isAuthorized, isAdmin, isSameUser } = require('../middlewares');
 
 router.use(isAuthorized);
 
+// List users
+router.get('/', isAdmin, usersController.list);
+
 // Profile details
 router.get('/:id', isSameUser, usersController.account);
 
@@ -14,8 +17,7 @@ router.patch('/:id', isSameUser, usersController.update);
 // Profile delete
 router.delete('/:id', isSameUser, usersController.delete);
 
-// List users
-router.get('/', usersController.list);
+
 
 // router.patch("/:id/manage", usersController.toAdmin);
 

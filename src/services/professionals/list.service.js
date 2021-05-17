@@ -2,7 +2,6 @@ const { professionalsRepository } = require('../../repositories');
 
 module.exports.list = async (options) => {
   const query = {};
-
   query.where = [];
 
   if (options.name && options.name !== '') {
