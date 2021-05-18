@@ -43,9 +43,9 @@ module.exports = {
     try {
       const { professional } = req.body;
 
-      const { paramsProfessionalId } = req;
+      const { paramsId } = req;
 
-      professional.id = paramsProfessionalId;
+      professional.id = paramsId;
 
       const schema = yup.object().shape({
         id: yup.string().required(),
@@ -77,10 +77,8 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { password } = req.body;
-
-      const professionalId = req.paramsProfessionalId;
-
-      await professionalsService.deleteProfessional(professionalId, password);
+      const { paramsId } = req;
+      await professionalsService.deleteProfessional(paramsId, password);
 
       return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {

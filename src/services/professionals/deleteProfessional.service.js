@@ -2,9 +2,9 @@ const { StatusCodes } = require('http-status-codes');
 const { encryptor, messages } = require('../../helpers');
 const { professionalsRepository } = require('../../repositories');
 
-module.exports.deleteUser = async (id, password) => {
+module.exports.deleteProfessional = async (id, password) => {
   const storedUser = await professionalsRepository.getById(id);
-
+  console.log(id)
   if (!storedUser) {
     throw {
       status: StatusCodes.NOT_FOUND,

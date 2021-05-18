@@ -90,42 +90,20 @@ module.exports = {
     }
   },
 
+
+  toAdmin: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const adminUser = await usersService.toAdmin(id);
+
+      res.status(StatusCodes.OK).json(adminUser);
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  }
 };
 
-/*
- * toAdmin: async (req, res) => {
- *   try {
- */
-
-/*
- *     const { isAdmin } = req.body;
- *     const id = Number(req.params.id);
- */
-
-/*
- *     const userData = { id, isAdmin }
- *     const schema = yup.object().shape({
- *       id: yup.number().required(),
- *       isAdmin: yup.boolean().required(),
- *     })
- */
-
-/*
- *     await schema.validate(userData, {
- *       abortEarly: false,
- *       stripUnknown: true,
- *     });
- */
-
-/*
- *     const adminUser = await usersService.toAdmin(userData);
- *     res.status(StatusCodes.OK).json(adminUser);
- *   } catch (error) {
- *     console.log(error);
- *     return res
- *       .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
- *       .json(error.message);
- *   }
- */
-
-// }

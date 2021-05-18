@@ -17,8 +17,7 @@ router.patch('/:id', isSameUser, usersController.update);
 // Profile delete
 router.delete('/:id', isSameUser, usersController.delete);
 
-
-
-// router.patch("/:id/manage", usersController.toAdmin);
+// Switch admin
+router.patch("/:id/manage", usersController.toAdmin);
 
 module.exports.users = router;

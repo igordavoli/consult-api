@@ -1,8 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const { usersRepository } = require('../../repositories');
 
-module.exports.toAdmin = async (user) => {
-  const storedUser = await usersRepository.getById(user.id);
+module.exports.toAdmin = async (id) => {
+  const storedUser = await usersRepository.getById(id);
 
   if (!storedUser) {
     throw {
@@ -11,7 +11,7 @@ module.exports.toAdmin = async (user) => {
     };
   }
 
-  storedUser.isAdmin = user.isAdmin;
+  storedUser.isAdmin = !storedUser.isAdmin;
 
   const adminUser = await usersRepository.update(storedUser);
 
