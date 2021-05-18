@@ -4,16 +4,19 @@ const yup = require('yup');
 
 module.exports = {
   signin: async (req, res) => {
+    console.log(req.body)
     try {
       const schema = yup.object().shape({
-        email: yup.string().required()
-          .email(),
+        email: yup.string().required().email(),
         password: yup.string().required(),
       });
 
       await schema.validate(req.body, { stripUnknown: true });
 
       const { email, password } = req.body;
+
+      console.log(email);
+      console.log(password);
 
       const response = await authService.signin(email, password);
 
