@@ -9,9 +9,12 @@ const db = {
   development: 'postgres',
 }
 
-const dialectOptions = process.env.NODE_ENV === 'production'
-  ? { ssl: { require: true, rejectUnauthorized: false, } }
-  : {}
+const options = {
+  production: { ssl: { require: true, rejectUnauthorized: false } },
+  test: {},
+  development: {},
+}
+
 
 module.exports = {
   username: process.env.DB_USER,
@@ -20,5 +23,5 @@ module.exports = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   dialect: 'postgres',
-  dialectOptions,
+  dialectOptions: options[process.env.NODE_ENV]
 };
