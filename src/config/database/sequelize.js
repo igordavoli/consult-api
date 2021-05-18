@@ -5,9 +5,8 @@ dotenv.config({ path: path.join(__dirname, '../../../.env') });
 
 
 const dialectOptions = process.env.NODE_ENV === 'production'
-  ? ssl = { require: false, rejectUnauthorized: false }
+  ? ssl = { require: true, rejectUnauthorized: false }
   : {}
-
 
 module.exports = {
   username: process.env.DB_USER,
