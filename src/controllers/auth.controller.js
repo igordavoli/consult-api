@@ -11,7 +11,10 @@ module.exports = {
         password: yup.string().required(),
       });
 
-      await schema.validate(req.body, { stripUnknown: true });
+      await schema.validate(req.body, {
+        stripUnknown: true,
+        abortEarly: false,
+      });
 
       const { email, password } = req.body;
 
@@ -37,8 +40,7 @@ module.exports = {
   signup: async (req, res) => {
     try {
       const schema = yup.object().shape({
-        email: yup.string().required()
-          .email(),
+        email: yup.string().required().email(),
         name: yup.string().required(),
         password: yup.string().required(),
       });
@@ -72,12 +74,14 @@ module.exports = {
   signinPro: async (req, res) => {
     try {
       const schema = yup.object().shape({
-        email: yup.string().required()
-          .email(),
+        email: yup.string().required().email(),
         password: yup.string().required(),
       });
 
-      await schema.validate(req.body, { stripUnknown: true });
+      await schema.validate(req.body, {
+        stripUnknown: true,
+        abortEarly: false,
+      });
 
       const { email, password } = req.body;
 
