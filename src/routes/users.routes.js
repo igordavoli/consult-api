@@ -18,6 +18,6 @@ router.patch('/:id', isSameUser, usersController.update);
 router.delete('/:id', isSameUser, usersController.delete);
 
 // Switch admin
-router.patch("/:id/manage", usersController.toAdmin);
+router.post("/:id/manage", usersController.toAdmin);
 
 module.exports.users = router;

@@ -90,4 +90,12 @@ module.exports = {
         .json(error.message);
     }
   },
+
+  switchStatus: async (req, res) => {
+    const { paramsId } = req;
+    const status = await professionalsService.switchStatus(paramsId);
+
+    res.status(StatusCodes.OK).json({ status });
+  }
+
 };

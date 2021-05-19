@@ -17,4 +17,7 @@ router.patch('/:id', isSameUser, professionalsController.update);
 // Profile delete
 router.delete('/:id', isSameUser, professionalsController.delete);
 
+// Switch status
+router.post('/:id/active-status', isSameUser, professionalsController.switchStatus);
+
 module.exports.professionals = router;
