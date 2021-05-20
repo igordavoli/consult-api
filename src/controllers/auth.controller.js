@@ -103,26 +103,23 @@ module.exports = {
 
   signupPro: async (req, res) => {
     try {
+
+      const userData = req.body;
+
       const schema = yup.object().shape({
-        email: yup.string().required().email(),
         name: yup.string().required(),
+        email: yup.string().required().email(),
         password: yup.string().required(),
-        professionalField: yup.string().required()
+        professionalField: yup.string().required(),
+        biography: yup.string().required(),
       });
 
-      await schema.validate(req.body, {
+      await schema.validate(userData, {
         stripUnknown: true,
         abortEarly: false,
       });
 
-      const { email, name, password, professionalField } = req.body;
-
-      const { storedProfessional, token } = await authService.signupPro(
-        email,
-        name,
-        password,
-        professionalField
-      );
+      const { storedProfessional, token } = await authService.signupPro(userData);
 
       return res.status(StatusCodes.CREATED).json({
         storedProfessional,

@@ -10,6 +10,7 @@ module.exports = {
         password:
           '$2y$08$EEDkHQR4jJiCprUHUZXlHeuK3h5Hb27Lcufd5kbev/tnrjxCBZNUm',
         professional_field: 'Psychologist',
+        biography: 'Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis!',
         is_active: true,
         created_at: new Date(),
         updated_at: new Date(),

@@ -5,8 +5,8 @@ const { constants } = require('../../utils');
 const { professionalsRepository } = require('../../repositories');
 const { promisify } = require('util');
 
-module.exports.signupPro = async (email, name, password, professionalField) => {
-  const hasEmail = await professionalsRepository.get({ email });
+module.exports.signupPro = async (userData) => {
+  const hasEmail = await professionalsRepository.get({ email: userData.email });
 
   if (hasEmail) {
     throw {
@@ -15,12 +15,7 @@ module.exports.signupPro = async (email, name, password, professionalField) => {
     };
   }
 
-  const storedProfessional = await professionalsRepository.create({
-    email,
-    name,
-    password,
-    professionalField,
-  });
+  const storedProfessional = await professionalsRepository.create(userData);
 
   const payload = {
     id: storedProfessional.id,

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "prestart": "yarn sequelize-cli db:migrate",
+    "prestart": "yarn sequelize-cli db:migrate && yarn sequelize-cli db:seed:all",
     "start:dev": "NODE_ENV=development nodemon app.js",
     "test": "NODE_ENV=test jest"
   },

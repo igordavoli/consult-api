@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: 'professional_field'
       },
+      biography: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       isActive: {
         allowNull: false,
         type: DataTypes.BOOLEAN,

@@ -25,6 +25,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      biography: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       is_active: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
