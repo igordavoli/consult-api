@@ -93,9 +93,9 @@ module.exports = {
 
   switchStatus: async (req, res) => {
     const { paramsId } = req;
-    const status = await professionalsService.switchStatus(paramsId);
+    const isActive = await professionalsService.switchStatus(paramsId);
 
-    res.status(StatusCodes.OK).json({ status });
+    res.status(StatusCodes.OK).json({ isActive });
   }
 
 };

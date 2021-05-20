@@ -20,4 +20,10 @@ router.delete('/:id', isSameUser, usersController.delete);
 // Switch admin
 router.post("/:id/manage", usersController.toAdmin);
 
+// List consultations
+router.get('/', consultationsController.list);
+
+// Create consultations
+router.post('/:id/consultations', consultationsController.create);
+
 module.exports.users = router;

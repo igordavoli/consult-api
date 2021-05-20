@@ -3,9 +3,9 @@ const router = require('express').Router();
 const { professionalsController } = require('../controllers');
 const { isAuthorized, isSameUser } = require('../middlewares');
 
-// List professionals
 router.use(isAuthorized);
 
+// List professionals
 router.get('/', professionalsController.list);
 
 // Profile details
