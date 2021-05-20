@@ -1,6 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { usersController } = require('../controllers');
+const { usersController, consultationsController } = require('../controllers');
 const { isAuthorized, isAdmin, isSameUser } = require('../middlewares');
 
 router.use(isAuthorized);
@@ -19,5 +19,12 @@ router.delete('/:id', isSameUser, usersController.delete);
 
 // Switch admin
 router.post("/:id/manage", usersController.toAdmin);
+
+// List consultations
+//router.get('/', consultationsController.list);
+
+// Create consultations
+router.post('/:id/consultations', isSameUser, usersController.createConsultation);
+
 
 module.exports.users = router;

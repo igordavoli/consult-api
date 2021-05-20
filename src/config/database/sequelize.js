@@ -11,9 +11,9 @@ module.exports = {
   port: process.env.DB_PORT,
   dialect: 'postgres',
   dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    }
+    // ssl: {
+    //   require: true,
+    //   rejectUnauthorized: false,
+    // }
   }
 };

@@ -90,7 +90,6 @@ module.exports = {
     }
   },
 
-
   toAdmin: async (req, res) => {
     try {
       const id = req.params.id;
@@ -98,6 +97,37 @@ module.exports = {
       const adminUser = await usersService.toAdmin(id);
 
       res.status(StatusCodes.OK).json(adminUser);
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  },
+
+  createConsultation: async (req, res) => {
+    try {
+
+
+      const { consultation } = req.body;
+      console.log(req.body)
+      console.log(req.paramsId)
+
+      const userId = req.paramsId;
+
+      const schema = yup.object().shape({
+        professionalId: yup.string().required(),
+        reason: yup.string().required(),
+      });
+
+      await schema.validate(consultation, {
+        abortEarly: false,
+        stripUnknown: true,
+      });
+
+      const storedConsultation = await usersService.createConsultation(consultation, userId);
+
+      res.status(StatusCodes.CREATED).json(storedConsultation);
     } catch (error) {
       console.log(error);
       return res

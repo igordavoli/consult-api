@@ -43,6 +43,11 @@ module.exports = (sequelize, DataTypes) => {
     { tableName: 'professionals' },
   );
 
+
+  Professional.associate = function (models) {
+    Professional.hasMany(models.Consultation, { foreignKey: "professional_id", as: "consultations" });
+  }
+
   Professional.beforeSave(async (professional, options) => {
     const password = await encryptor.hashPassword(professional.password);
 

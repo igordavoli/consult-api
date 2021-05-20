@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     { tableName: 'users' },
   );
 
+  User.associate = function (models) {
+    User.hasMany(models.Consultation, { foreignKey: "user_id", as: "consultations" });
+  }
+
   User.beforeSave(async (user, options) => {
     const password = await encryptor.hashPassword(user.password);
 
@@ -45,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     return user;
   });
 
-  User.prototype.toJSON = function() {
+  User.prototype.toJSON = function () {
     const user = { ...this.get() };
 
     return Object.fromEntries(
