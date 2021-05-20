@@ -2,8 +2,10 @@ const { usersRepository, professionalsRepository, consultationsRepository } = re
 const { messages } = require("../../helpers");
 const { StatusCodes } = require("http-status-codes");
 
-module.exports.create = async (consultationData) => {
-  const user = await usersRepository.getById(consultationData.userId);
+module.exports.createConsultation = async (consultationData, userId) => {
+  const user = await usersRepository.getById(userId);
+
+  console.log(consultationData)
 
   if (!user) {
     throw {
@@ -19,13 +21,19 @@ module.exports.create = async (consultationData) => {
   if (!professional) {
     throw {
       status: StatusCodes.NOT_FOUND,
-      message: messages.notFound('user'),
+      message: messages.notFound('professional'),
     };
   }
 
-  consultation.status = 'waitingProfessionalConfirmation'
+  const _consultationData = {
+    user_id: userId,
+    status: 'created',
+    professional_id: consultationData.professionalId,
+    reason: consultationData.reason,
+  }
 
-  const consultation = await consultationsRepository.create(consultationData);
+
+  const consultation = await consultationsRepository.create(_consultationData);
 
   await user.addConsultation(consultation);
 

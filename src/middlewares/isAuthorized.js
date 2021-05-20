@@ -37,8 +37,8 @@ module.exports = async (req, res, next) => {
 
     if (!tokenUser) {
       throw {
-        status: StatusCodes.NOT_FOUND,
-        message: messages.notFound('user'),
+        status: StatusCodes.UNAUTHORIZED,
+        message: messages.notFound('valid-token'),
       };
     }
 

@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     "Consultation",
     {
       id: {
-        allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
       },
@@ -30,17 +29,17 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Consultation.associate = function (models) {
-    Consultation.belongsTo(models.Consultation, { foreignKey: "professional_id", as: "professional" });
+    Consultation.belongsTo(models.Professional, { foreignKey: "professional_id", as: "professional" });
     Consultation.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
-
-    Consultation.beforeSave(async (Consultation, options) => {
-      if (!Consultation.id) {
-        Consultation.id = v4();
-      }
-
-      return Consultation;
-    });
-
   };
+
+  Consultation.beforeSave(async (consultation, options) => {
+    if (!consultation.id) {
+      consultation.id = v4();
+    }
+
+    return consultation;
+  });
+
   return Consultation;
 };
