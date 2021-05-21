@@ -42,6 +42,7 @@ module.exports = {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
         name: yup.string().required(),
+        telephone: yup.string().required(),
         password: yup.string().required(),
       });
 
@@ -50,9 +51,9 @@ module.exports = {
         abortEarly: false,
       });
 
-      const { email, name, password } = req.body;
+      const userData = req.body;
 
-      const { storedUser, token } = await authService.signup(email, name, password);
+      const { storedUser, token } = await authService.signup(userData);
 
       return res.status(StatusCodes.CREATED).json({
         storedUser,
