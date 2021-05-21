@@ -20,4 +20,7 @@ router.delete('/:id', isSameUser, professionalsController.delete);
 // Switch status
 router.post('/:id/active-status', isSameUser, professionalsController.switchStatus);
 
+// List consultations
+router.get('/:id/consultations', isSameUser, professionalsController.listConsultations);
+
 module.exports.professionals = router;

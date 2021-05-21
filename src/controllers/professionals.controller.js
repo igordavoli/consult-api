@@ -96,6 +96,26 @@ module.exports = {
     const isActive = await professionalsService.switchStatus(paramsId);
 
     res.status(StatusCodes.OK).json({ isActive });
+  },
+
+  listConsultations: async (req, res) => {
+    try {
+      const userId = req.paramsId;
+
+      const response = await professionalsService.listConsultations({ userId });
+
+      if (!response || response.data.length === 0) {
+        return res.status(StatusCodes.NO_CONTENT).end();
+      }
+
+      return res.status(StatusCodes.OK).json(response);
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
   }
 
 };
