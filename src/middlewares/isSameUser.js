@@ -7,9 +7,6 @@ module.exports = async (req, res, next) => {
     const paramsId = req.params.id;
     const tokenId = req.tokenUser.id;
     const isSame = paramsId === tokenId;
-    // console.log(req.tokenUser)
-    // console.log(tokenId)
-    console.log(paramsId)
 
     if (!isSame) {
       throw {

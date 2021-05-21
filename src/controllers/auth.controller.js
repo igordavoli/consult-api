@@ -42,7 +42,8 @@ module.exports = {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
         name: yup.string().required(),
-        telephone: yup.string().required(),
+        telephone: yup.string().required().length(11)
+          .matches(/^[0-9]+$/, "Must be only digits"),
         password: yup.string().required(),
       });
 

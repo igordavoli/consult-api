@@ -20,8 +20,8 @@ router.delete('/:id', isSameUser, usersController.delete);
 // Switch admin
 router.post("/:id/manage", usersController.toAdmin);
 
-// List consultations
-//router.get('/', consultationsController.list);
+// List user consultations
+router.get('/:id/consultations', isSameUser, usersController.listConsultations);
 
 // Create consultations
 router.post('/:id/consultations', isSameUser, usersController.createConsultation);

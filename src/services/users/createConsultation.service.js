@@ -32,10 +32,10 @@ module.exports.createConsultation = async (consultationData, userId) => {
     reason: consultationData.reason,
   }
 
-
   const consultation = await consultationsRepository.create(_consultationData);
 
   await user.addConsultation(consultation);
+  await professional.addConsultation(consultation);
 
   return consultation;
 }

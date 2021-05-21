@@ -22,6 +22,10 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
+      grade: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
       // address: {
       //   allowNull: false,
       //   type: Sequelize.UUID,
