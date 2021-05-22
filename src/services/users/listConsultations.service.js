@@ -6,7 +6,7 @@ module.exports.listConsultations = async (options) => {
     where: { user_id: userId },
     include: {
       association: 'professional',
-      attributes: ['id', 'name']
+      attributes: ['id', 'firstName', 'lastName']
     }
   };
 
