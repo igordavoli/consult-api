@@ -9,13 +9,48 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.UUID,
       },
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      firstName: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        field: 'first_name'
+      },
+      lastName: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        field: 'last_name'
+      },
+      email: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       professionalField: {
         allowNull: false,
         type: DataTypes.STRING,
         field: 'professional_field'
+      },
+      experience: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      biography: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      city: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      remotely: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
+      crp: {
+        allowNull: false,
+        type: DataTypes.STRING,
       },
       isActive: {
         allowNull: false,

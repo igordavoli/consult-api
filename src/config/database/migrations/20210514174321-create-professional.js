@@ -9,7 +9,11 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      name: {
+      first_name: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      last_name: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -25,9 +29,25 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      experience: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       biography: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      crp: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      city: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      remotely: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       is_active: {
         allowNull: false,
