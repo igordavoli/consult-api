@@ -9,12 +9,30 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      name: { type: Sequelize.STRING },
-      email: { type: Sequelize.STRING },
-      email: { type: Sequelize.STRING },
-      telephone: { type: Sequelize.STRING },
-      password: { type: Sequelize.STRING },
-      is_admin: { type: Sequelize.BOOLEAN },
+      first_name: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      last_name: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      email: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      telephone: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      is_admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

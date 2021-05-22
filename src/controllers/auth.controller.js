@@ -40,8 +40,9 @@ module.exports = {
   signup: async (req, res) => {
     try {
       const schema = yup.object().shape({
+        firstName: yup.string().required(),
+        lastName: yup.string().required(),
         email: yup.string().required().email(),
-        name: yup.string().required(),
         telephone: yup.string().required().length(11)
           .matches(/^[0-9]+$/, "Must be only digits"),
         password: yup.string().required(),
@@ -109,7 +110,8 @@ module.exports = {
       const userData = req.body;
 
       const schema = yup.object().shape({
-        name: yup.string().required(),
+        firstName: yup.string().required(),
+        lastName: yup.string().required(),
         email: yup.string().required().email(),
         password: yup.string().required(),
         professionalField: yup.string().required(),
