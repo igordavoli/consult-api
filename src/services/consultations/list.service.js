@@ -1,17 +1,26 @@
 const { consultationsRepository } = require('../../repositories');
 
-module.exports.listConsultations = async (professionalId, options) => {
+module.exports.list = async (id, options, isProfessional) => {
   const { firstName, lastName, status } = options;
+  const query = {};
+  const attributes = ['id', 'firstName', 'lastName'];
 
-  const query = {
-    where: [{ professional_id: professionalId }],
-    include: [
-      {
-        association: 'user',
-        attributes: ['id', 'firstName', 'lastName', 'telephone']
-      }
-    ]
-  };
+  let association = '';
+
+
+  if (isProfessional) {
+    query.where = [{ professional_id: id }];
+    association = 'user';
+    attributes.push('telephone')
+  } else {
+    query.where = [{ user_id: id }];
+    association = 'professional';
+  }
+
+  query.include = [{
+    association,
+    attributes,
+  }]
 
   if (status && status !== '') {
     query.where.push({ status });
@@ -19,19 +28,17 @@ module.exports.listConsultations = async (professionalId, options) => {
 
   if (firstName && firstName !== '') {
     query.include.push({
-      association: 'user',
+      association,
       where: { firstName }
     });
   }
 
   if (lastName && lastName !== '') {
     query.include.push({
-      association: 'user',
+      association,
       where: { lastName }
     });
   }
-
-
 
   const { count, rows } = await consultationsRepository.list(query);
 

@@ -46,7 +46,9 @@ module.exports = async (req, res, next) => {
       token,
       id: decoded.id,
       email: decoded.email,
+      isProfessional: decoded.isProfessional,
     };
+
     req.tokenUser = tokenUser;
 
     return next();

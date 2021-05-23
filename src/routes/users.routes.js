@@ -21,10 +21,10 @@ router.delete('/:id', isSameUser, usersController.delete);
 router.post("/:id/manage", usersController.toAdmin);
 
 // List user consultations
-router.get('/:id/consultations', isSameUser, usersController.listConsultations);
+router.get('/:id/consultations', isSameUser, consultationsController.list);
 
 // Create consultations
-router.post('/:id/consultations', isSameUser, usersController.createConsultation);
+router.post('/:id/consultations', isSameUser, consultationsController.create);
 
 
 module.exports.users = router;

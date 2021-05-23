@@ -76,7 +76,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
   Professional.associate = function (models) {
-    Professional.hasMany(models.Consultation, { foreignKey: "professional_id", as: "consultations" });
+    Professional.hasMany(models.Consultation, { foreignKey: "professionalId", as: "consultations" });
   }
 
   Professional.beforeSave(async (professional, options) => {

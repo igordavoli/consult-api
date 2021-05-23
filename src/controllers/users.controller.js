@@ -104,52 +104,5 @@ module.exports = {
         .json(error.message);
     }
   },
-
-  createConsultation: async (req, res) => {
-    try {
-      const { consultation } = req.body;
-
-      const userId = req.paramsId;
-
-      const schema = yup.object().shape({
-        professionalId: yup.string().required(),
-        reason: yup.string().required(),
-      });
-
-      await schema.validate(consultation, {
-        abortEarly: false,
-        stripUnknown: true,
-      });
-
-      const storedConsultation = await usersService.createConsultation(consultation, userId);
-
-      res.status(StatusCodes.CREATED).json(storedConsultation);
-    } catch (error) {
-      console.log(error);
-      return res
-        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(error.message);
-    }
-  },
-
-  listConsultations: async (req, res) => {
-    try {
-      const userId = req.paramsId;
-
-      const response = await usersService.listConsultations({ userId });
-
-      if (!response || response.data.length === 0) {
-        return res.status(StatusCodes.NO_CONTENT).end();
-      }
-
-      return res.status(StatusCodes.OK).json(response);
-    } catch (error) {
-      console.log(error);
-
-      return res
-        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(error.message);
-    }
-  }
 };
 

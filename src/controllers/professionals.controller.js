@@ -61,7 +61,9 @@ module.exports = {
         stripUnknown: true,
       });
 
-      const updatedProfessional = await professionalsService.update(professional);
+      const updatedProfessional = await professionalsService.update(
+        professional
+      );
 
       return res.status(StatusCodes.CREATED).json(updatedProfessional);
     } catch (error) {
@@ -100,9 +102,13 @@ module.exports = {
 
   listConsultations: async (req, res) => {
     try {
-      const userId = req.paramsId;
+      const options = req.query;
+      const professionalId = req.paramsId;
 
-      const response = await professionalsService.listConsultations({ userId });
+      const response = await professionalsService.listConsultations(
+        professionalId,
+        options,
+      );
 
       if (!response || response.data.length === 0) {
         return res.status(StatusCodes.NO_CONTENT).end();
@@ -117,5 +123,4 @@ module.exports = {
         .json(error.message);
     }
   }
-
 };

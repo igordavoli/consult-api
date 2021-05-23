@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Consultation.associate = function (models) {
-    Consultation.belongsTo(models.Professional, { foreignKey: "professional_id", as: "professional" });
-    Consultation.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+    Consultation.belongsTo(models.Professional, { foreignKey: "professionalId", as: "professional" });
+    Consultation.belongsTo(models.User, { foreignKey: "userId", as: "user" });
   };
 
   Consultation.beforeSave(async (consultation, options) => {

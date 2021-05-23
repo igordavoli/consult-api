@@ -2,7 +2,7 @@ const { usersRepository, professionalsRepository, consultationsRepository } = re
 const { messages } = require("../../helpers");
 const { StatusCodes } = require("http-status-codes");
 
-module.exports.createConsultation = async (consultationData, userId) => {
+module.exports.create = async (consultationData, userId) => {
   const user = await usersRepository.getById(userId);
 
   console.log(consultationData)
@@ -26,9 +26,9 @@ module.exports.createConsultation = async (consultationData, userId) => {
   }
 
   const _consultationData = {
-    user_id: userId,
+    userId: userId,
     status: 'created',
-    professional_id: consultationData.professionalId,
+    professionalId: consultationData.professionalId,
     reason: consultationData.reason,
   }
 
