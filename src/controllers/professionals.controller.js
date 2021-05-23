@@ -7,9 +7,10 @@ const yup = require('yup');
 module.exports = {
   list: async (req, res) => {
     try {
-      const { name } = req.query;
+      const options = req.query;
 
-      const response = await professionalsService.list({ name });
+
+      const response = await professionalsService.list(options);
 
       if (!response || response.data.length === 0) {
         return res.status(StatusCodes.NO_CONTENT).end();

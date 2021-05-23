@@ -1,14 +1,22 @@
 const { professionalsRepository } = require('../../repositories');
 
 module.exports.list = async (options) => {
-  const query = {};
-  query.where = [];
+  const { city, remotely } = options;
 
-  if (options.name && options.name !== '') {
-    query.where.push({ name: options.name });
+  const query = {};
+
+  query.where = [
+    { is_deleted: false },
+    { is_active: true }
+  ];
+
+  if (city && city !== '') {
+    query.where.push({ city });
   }
 
-  query.where.push({ is_deleted: false });
+  if (remotely && remotely !== '') {
+    query.where.push({ remotely });
+  }
 
   const { count, rows } = await professionalsRepository.list(query);
 
