@@ -4,9 +4,9 @@ module.exports = {
   up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('users', [
     {
       id: '4f006377-a49c-4434-bbde-ad7848ad43dd',
-      first_name: 'Administrador',
-      last_name: 'Administrador',
-      email: 'admin@ioasys.com',
+      first_name: 'Michael',
+      last_name: 'Jackson',
+      email: 'michael@jackson.com',
       telephone: '31123456789',
       password: '$2y$08$EEDkHQR4jJiCprUHUZXlHeuK3h5Hb27Lcufd5kbev/tnrjxCBZNUm',
       is_admin: true,

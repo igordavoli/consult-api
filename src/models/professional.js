@@ -55,7 +55,6 @@ module.exports = (sequelize, DataTypes) => {
       isActive: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
         field: 'is_active',
       },
       createdAt: {

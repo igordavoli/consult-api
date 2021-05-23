@@ -7,7 +7,7 @@ module.exports = {
         id: '82409d97-6e54-4881-a5e5-5021f97ac21e',
         first_name: 'John',
         last_name: 'Lee',
-        email: 'professional@ioasys.com',
+        email: 'johnlee@psychologist.com',
         password: '$2y$08$EEDkHQR4jJiCprUHUZXlHeuK3h5Hb27Lcufd5kbev/tnrjxCBZNUm',
         professional_field: 'Psychologist',
         experience: 'Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Atirei o pau no gatis, per gatis num morreus.',
