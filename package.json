@@ -7,7 +7,9 @@
     "start": "NODE_ENV=production node app.js",
     "prestart": "yarn sequelize-cli db:migrate",
     "start:dev": "NODE_ENV=development nodemon app.js",
-    "test": "NODE_ENV=test yarn sequelize-cli db:migrate && jest"
+    "pretest": "NODE_ENV=test yarn sequelize-cli db:migrate",
+    "test": " jest -i --forceExit",
+    "posttest": "NODE_ENV=test yarn sequelize-cli db:migrate:undo:all"
   },
   "repository": {
     "type": "git",
