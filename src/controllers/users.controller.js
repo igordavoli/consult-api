@@ -46,12 +46,11 @@ module.exports = {
       user.id = paramsId;
 
       const schema = yup.object().shape({
-        id: yup.string().required(),
-        email: yup.string().required()
-          .email(),
-        name: yup.string().required(),
+        email: yup.string().email(),
+        firstName: yup.string().min(1),
+        lastName: yup.string().min(1),
         password: yup.string().required(),
-        newPassword: yup.string(),
+        newPassword: yup.string().min(8),
       });
 
       await schema.validate(user, {
