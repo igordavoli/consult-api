@@ -1,14 +1,12 @@
 /* eslint-disable object-shorthand */
 const { StatusCodes } = require('http-status-codes');
 const { professionalsService } = require('../services');
-const { messages } = require('../helpers');
 const yup = require('yup');
 
 module.exports = {
   list: async (req, res) => {
     try {
       const options = req.query;
-
 
       const response = await professionalsService.list(options);
 
@@ -28,7 +26,9 @@ module.exports = {
   account: (req, res) => {
     try {
       const { tokenUser } = req;
+
       const { paramsId } = req;
+
       tokenUser.id = paramsId;
 
       return res.status(StatusCodes.OK).json({ professional: tokenUser });
@@ -49,12 +49,12 @@ module.exports = {
       professional.id = paramsId;
 
       const schema = yup.object().shape({
-        id: yup.string().required(),
-        email: yup.string().required()
-          .email(),
-        name: yup.string().required(),
+        email: yup.string().email(),
+        firstName: yup.string().min(1),
+        lastName: yup.string().min(1),
+        biography: yup.string().min(1),
         password: yup.string().required(),
-        newPassword: yup.string(),
+        newPassword: yup.string().min(8),
       });
 
       await schema.validate(professional, {
@@ -80,7 +80,9 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { password } = req.body;
+
       const { paramsId } = req;
+
       await professionalsService.deleteProfessional(paramsId, password);
 
       return res.status(StatusCodes.NO_CONTENT).json({});
