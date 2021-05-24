@@ -9,9 +9,7 @@ const databaseName = {
   production: process.env.DB_NAME,
 }
 //databaseName[process.env.NODE_ENV]
-const options = process.env.NODE_ENV === 'production'
-  ? { ssl: { require: true, rejectUnauthorized: false } }
-  : {}
+// const options = process.env.NODE_ENV === 'production'
 
 module.exports = {
   username: process.env.DB_USER,
@@ -23,5 +21,10 @@ module.exports = {
     underscored: true
   },
   dialect: 'postgres',
-  dialectOptions: options
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
 };
