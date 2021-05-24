@@ -1,8 +1,5 @@
 const request = require('supertest');
 const app = require('../../app');
-const sequelize = require('sequelize')
-// const getConnection = require('sequelize');
-// const createConnection = require('../config/database/');
 
 describe('User', () => {
 
