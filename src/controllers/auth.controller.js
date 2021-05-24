@@ -8,7 +8,7 @@ module.exports = {
     try {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
-        password: yup.string().required(),
+        password: yup.string().required().min(8),
       });
 
       await schema.validate(req.body, {
@@ -40,12 +40,12 @@ module.exports = {
   signup: async (req, res) => {
     try {
       const schema = yup.object().shape({
-        firstName: yup.string().required(),
-        lastName: yup.string().required(),
+        firstName: yup.string().required().min(1),
+        lastName: yup.string().required().min(1),
         email: yup.string().required().email(),
         telephone: yup.string().required().length(11)
           .matches(/^[0-9]+$/, "Must be only digits"),
-        password: yup.string().required(),
+        password: yup.string().required().min(8),
       });
 
       await schema.validate(req.body, {
@@ -78,7 +78,7 @@ module.exports = {
     try {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
-        password: yup.string().required(),
+        password: yup.string().required().min(8),
       });
 
       await schema.validate(req.body, {
@@ -110,12 +110,13 @@ module.exports = {
       const userData = req.body;
 
       const schema = yup.object().shape({
-        firstName: yup.string().required(),
-        lastName: yup.string().required(),
+        firstName: yup.string().required().min(1),
+        lastName: yup.string().required().min(1),
         email: yup.string().required().email(),
-        password: yup.string().required(),
+        password: yup.string().required().min(8),
         professionalField: yup.string().required(),
-        biography: yup.string().required(),
+        biography: yup.string().required().min(1).max(255),
+        experience: yup.string().required().min(1).max(255),
       });
 
       await schema.validate(userData, {

@@ -1,7 +1,6 @@
 /* eslint-disable object-shorthand */
 const { StatusCodes } = require('http-status-codes');
 const { usersService } = require('../services');
-const { messages } = require('../helpers');
 const yup = require('yup');
 
 module.exports = {
@@ -49,7 +48,7 @@ module.exports = {
         email: yup.string().email(),
         firstName: yup.string().min(1),
         lastName: yup.string().min(1),
-        password: yup.string().required(),
+        password: yup.string().required().min(8),
         newPassword: yup.string().min(8),
       });
 
