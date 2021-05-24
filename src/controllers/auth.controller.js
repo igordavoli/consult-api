@@ -4,7 +4,7 @@ const yup = require('yup');
 
 module.exports = {
   signin: async (req, res) => {
-    console.log(req.body)
+    console.log(req)
     try {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
@@ -38,6 +38,7 @@ module.exports = {
   },
 
   signup: async (req, res) => {
+    console.log(req)
     try {
       const schema = yup.object().shape({
         firstName: yup.string().required().min(1),
@@ -75,6 +76,7 @@ module.exports = {
   },
 
   signinPro: async (req, res) => {
+    console.log(req)
     try {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
@@ -105,6 +107,7 @@ module.exports = {
   },
 
   signupPro: async (req, res) => {
+    console.log(req)
     try {
 
       const userData = req.body;
