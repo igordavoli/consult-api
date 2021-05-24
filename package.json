@@ -4,7 +4,7 @@
   "description": "Camp's folder structure",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "NODE_ENV=production node app.js",
     "prestart": "NODE_ENV=production yarn sequelize-cli db:migrate",
     "start:dev": "nodemon app.js",
     "test": "jest -i --forceExit ",
