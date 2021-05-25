@@ -41,7 +41,4 @@ const databaseConfig = {
   }
 }
 
-
-console.log(databaseConfig[process.env.NODE_ENV])
-
 module.exports = databaseConfig[process.env.NODE_ENV];
