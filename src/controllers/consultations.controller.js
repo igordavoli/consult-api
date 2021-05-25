@@ -72,4 +72,21 @@ module.exports = {
         .json(error.message);
     }
   },
+
+  recuse: async (req, res) => {
+    try {
+      const { consultationId } = req.params;
+
+      const status = 'recused'
+
+      await consultationsService.setStatus(consultationId, status);
+
+      res.status(StatusCodes.NO_CONTENT).json({});
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  }
 };

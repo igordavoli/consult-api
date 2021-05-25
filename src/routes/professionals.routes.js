@@ -26,4 +26,7 @@ router.get('/:id/consultations', isSameUser, consultationsController.list);
 // Confirm consultation
 router.post('/:id/consultations/:consultationId/confirmation', isSameUser, consultationsController.confirm);
 
+// Recuse consultation
+router.post('/:id/consultations/:consultationId/recusation', isSameUser, consultationsController.recuse);
+
 module.exports.professionals = router;
