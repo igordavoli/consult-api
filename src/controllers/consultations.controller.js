@@ -88,5 +88,42 @@ module.exports = {
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
+  },
+
+  cancelate: async (req, res) => {
+    try {
+      const { consultationId } = req.params;
+
+      const status = 'canceled'
+
+      console.log(consultationId)
+
+      await consultationsService.setStatus(consultationId, status);
+
+      res.status(StatusCodes.NO_CONTENT).json({});
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  },
+  conclude: async (req, res) => {
+    try {
+      const { consultationId } = req.params;
+
+      const status = 'concluded'
+
+      console.log(consultationId)
+
+      await consultationsService.setStatus(consultationId, status);
+
+      res.status(StatusCodes.NO_CONTENT).json({});
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
   }
 };

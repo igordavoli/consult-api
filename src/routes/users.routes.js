@@ -26,5 +26,8 @@ router.get('/:id/consultations', isSameUser, consultationsController.list);
 // Create consultations
 router.post('/:id/consultations', isSameUser, consultationsController.create);
 
+// Cancel consultation
+router.post('/:id/consultations/:consultationId/cancellation', isSameUser, consultationsController.cancelate);
+
 
 module.exports.users = router;
