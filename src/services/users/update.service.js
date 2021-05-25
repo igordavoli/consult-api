@@ -15,20 +15,20 @@ module.exports.update = async (user) => {
     };
   }
 
-  const valid = await encryptor.comparePassword(user.password, storedUser.password);
+  // const valid = await encryptor.comparePassword(user.password, storedUser.password);
 
-  if (!valid) {
-    throw {
-      status: StatusCodes.UNAUTHORIZED,
-      message: messages.invalidPassword,
-    };
-  }
+  // if (!valid) {
+  //   throw {
+  //     status: StatusCodes.UNAUTHORIZED,
+  //     message: messages.invalidPassword,
+  //   };
+  // }
 
   Object.assign(storedUser, user);
 
-  if (user.newPassword) {
-    storedUser.password = user.newPassword;
-  }
+  // if (user.newPassword) {
+  //   storedUser.password = user.newPassword;
+  // }
 
   const updatedUser = await usersRepository.update(storedUser);
 
