@@ -23,4 +23,7 @@ router.post('/:id/active-status', isSameUser, professionalsController.switchStat
 // List consultations
 router.get('/:id/consultations', isSameUser, consultationsController.list);
 
+// Confirm consultation
+router.post('/:id/consultations/:consultationId/confirmation', isSameUser, consultationsController.confirm);
+
 module.exports.professionals = router;

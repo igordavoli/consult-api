@@ -1,6 +1,6 @@
 /* eslint-disable object-shorthand */
 const { StatusCodes } = require('http-status-codes');
-const { professionalsService, usersService, consultationsService } = require('../services');
+const { consultationsService } = require('../services');
 const yup = require('yup');
 
 module.exports = {
@@ -42,9 +42,29 @@ module.exports = {
         stripUnknown: true,
       });
 
-      const storedConsultation = await consultationsService.create(consultation, userId);
+      const storedConsultation = await consultationsService.create(
+        consultation,
+        userId,
+      );
 
       res.status(StatusCodes.CREATED).json(storedConsultation);
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  },
+
+  confirm: async (req, res) => {
+    try {
+      const { consultationId } = req.params;
+
+      const status = 'confirmed'
+
+      await consultationsService.setStatus(consultationId, status);
+
+      res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
       console.log(error);
       return res
