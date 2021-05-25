@@ -29,4 +29,7 @@ router.post('/:id/consultations/:consultationId/confirmation', isSameUser, consu
 // Recuse consultation
 router.post('/:id/consultations/:consultationId/recusation', isSameUser, consultationsController.recuse);
 
+// Conclude consultation
+router.post('/:id/consultations/:consultationId/conclusion', isSameUser, consultationsController.conclude);
+
 module.exports.professionals = router;
