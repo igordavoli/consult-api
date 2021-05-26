@@ -42,6 +42,14 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: 'pending'
       },
+      was_good: {
+        allowNull: true,
+        type: Sequelize.BOOLEAN,
+      },
+      comment: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

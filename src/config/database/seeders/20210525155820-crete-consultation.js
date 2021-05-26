@@ -9,8 +9,8 @@ module.exports = {
         status: 'created',
         professional_id: '82409d97-6e54-4881-a5e5-5021f97ac21e',
         reason: 'Problems',
-        updated_at: '2021-05-25T02:48:18.317Z',
-        created_at: '2021-05-25T02:48:18.317Z'
+        created_at: new Date(),
+        updated_at: new Date(),
       }
     ]),
 

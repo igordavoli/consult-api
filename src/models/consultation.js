@@ -16,6 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      comment: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
+      wasGood: {
+        allowNull: true,
+        type: DataTypes.BOOLEAN,
+        field: 'was_good',
+      },
       createdAt: {
         type: DataTypes.DATE,
         field: "created_at",

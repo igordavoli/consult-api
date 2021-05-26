@@ -125,5 +125,23 @@ module.exports = {
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
-  }
+  },
+  avaliate: async (req, res) => {
+    try {
+      const { consultationId } = req.params;
+
+      const { evaluation } = req.body;
+
+      console.log(consultationId)
+
+      await consultationsService.avaliate(consultationId, evaluation);
+
+      res.status(StatusCodes.NO_CONTENT).json({});
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  },
 };

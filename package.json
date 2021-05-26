@@ -9,7 +9,10 @@
     "start:dev": "nodemon app.js",
     "test": "jest -i --forceExit ",
     "pretest": "NODE_ENV=test yarn sequelize-cli db:migrate",
-    "posttest": "NODE_ENV=test yarn sequelize-cli db:migrate:undo:all"
+    "posttest": "NODE_ENV=test yarn sequelize-cli db:migrate:undo:all",
+    "migrate": "sequelize-cli db:migrate",
+    "seed": "sequelize-cli db:seed",
+    "seedAll": "sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",
