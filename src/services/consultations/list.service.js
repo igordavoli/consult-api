@@ -10,6 +10,7 @@ module.exports.list = async (id, options, isProfessional) => {
 
   if (isProfessional) {
     query.where = [{ professional_id: id }];
+    query.attributes = { exclude: ['wasGood', 'comment'] };
     association = 'user';
     attributes.push('telephone')
   } else {
