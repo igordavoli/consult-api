@@ -29,7 +29,7 @@ module.exports = {
   create: async (req, res) => {
     console.log(req)
     try {
-      const { consultation } = req.body;
+      const consultation = req.body;
 
       const userId = req.paramsId;
 
