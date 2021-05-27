@@ -14,7 +14,7 @@ module.exports = {
         biography: 'Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis!',
         crp: '1234567890',
         is_active: true,
-        city: 'belo horizonte',
+        city: 'São Paulo',
         remotely: true,
         created_at: new Date(),
         updated_at: new Date(),
