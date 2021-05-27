@@ -5,8 +5,6 @@ const { StatusCodes } = require("http-status-codes");
 module.exports.create = async (consultationData, userId) => {
   const user = await usersRepository.getById(userId);
 
-  console.log(consultationData)
-
   if (!user) {
     throw {
       status: StatusCodes.NOT_FOUND,

@@ -44,9 +44,6 @@ module.exports.list = async (id, options, isProfessional) => {
     });
   }
 
-  console.log(query);
-
-
   const { count, rows } = await consultationsRepository.list(query);
 
   return {
