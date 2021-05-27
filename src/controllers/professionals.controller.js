@@ -11,7 +11,7 @@ module.exports = {
       const response = await professionalsService.list(options);
 
       if (!response || response.data.length === 0) {
-        return res.status(StatusCodes.NO_CONTENT).end();
+        return res.status(StatusCodes.OK).end({ metadata: { total: 0 }, data: [] });
       }
 
       return res.status(StatusCodes.OK).json(response);
@@ -102,28 +102,4 @@ module.exports = {
 
     res.status(StatusCodes.OK).json({ isActive });
   },
-
-  listConsultations: async (req, res) => {
-    try {
-      const options = req.query;
-      const professionalId = req.paramsId;
-
-      const response = await professionalsService.listConsultations(
-        professionalId,
-        options,
-      );
-
-      if (!response || response.data.length === 0) {
-        return res.status(StatusCodes.NO_CONTENT).end();
-      }
-
-      return res.status(StatusCodes.OK).json(response);
-    } catch (error) {
-      console.log(error);
-
-      return res
-        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(error.message);
-    }
-  }
 };
