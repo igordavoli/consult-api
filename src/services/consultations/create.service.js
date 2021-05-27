@@ -27,7 +27,6 @@ module.exports.create = async (consultationData, userId) => {
 
   const _consultationData = {
     userId: userId,
-    status: 'created',
     professionalId: consultationData.professionalId,
     reason: consultationData.reason,
   }

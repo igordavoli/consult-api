@@ -3,7 +3,7 @@ const { consultationsRepository } = require('../../repositories');
 module.exports.list = async (id, options, isProfessional) => {
   const { firstName, lastName, status } = options;
   const query = {};
-  const attributes = ['id', 'firstName', 'lastName'];
+  const attributes = ['id', 'firstName', 'lastName', 'email'];
 
   let association = '';
 

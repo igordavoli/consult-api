@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
       },
       status: {
-        allowNull: false,
         type: DataTypes.STRING,
       },
       reason: {

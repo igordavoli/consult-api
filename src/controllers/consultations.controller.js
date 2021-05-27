@@ -27,7 +27,11 @@ module.exports = {
   },
 
   create: async (req, res) => {
+
     console.log(req)
+    console.log(req.body)
+    console.log(req.headers)
+
     try {
       const consultation = req.body;
 

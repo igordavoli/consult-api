@@ -28,6 +28,8 @@ router.post('/:id/consultations', isSameUser, consultationsController.create);
 
 // Cancel consultation
 router.post('/:id/consultations/:consultationId/cancellation', isSameUser, consultationsController.cancelate);
+
+// Avaliate consultation
 router.post('/:id/consultations/:consultationId/evaluation', isSameUser, consultationsController.avaliate);
 
 
