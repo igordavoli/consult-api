@@ -13,7 +13,7 @@ module.exports = {
       const response = await consultationsService.list(id, options, isProfessional)
 
       if (!response || response.data.length === 0) {
-        return res.status(StatusCodes.NO_CONTENT).end();
+        return res.status(StatusCodes.OK).end({ data: [] });
       }
 
       return res.status(StatusCodes.OK).json(response);
