@@ -52,7 +52,7 @@ module.exports = {
         userId,
       );
 
-      res.status(StatusCodes.CREATED).json(storedConsultation);
+      res.status(StatusCodes.CREATED).json({ storedConsultation });
     } catch (error) {
       console.log(error);
       return res
