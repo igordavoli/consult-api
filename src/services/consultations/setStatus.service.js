@@ -1,9 +1,10 @@
-const { consultationsRepository } = require('../../repositories')
+const { consultationsRepository } = require('../../repositories');
+const validations = require('../../validations')
 
 module.exports.setStatus = async (id, status) => {
   const consultation = await consultationsRepository.getById(id);
 
-  const updatedConsultation = consultation.update({ status });
+  validations.changeStatus(consultation.status, status);
 
-  return updatedConsultation;
+  consultation.update({ status });
 }
