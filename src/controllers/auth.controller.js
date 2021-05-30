@@ -4,7 +4,7 @@ const yup = require('yup');
 
 module.exports = {
   signin: async (req, res) => {
-    console.log(req)
+
     try {
       const schema = yup.object().shape({
         email: yup.string().required().email(),
