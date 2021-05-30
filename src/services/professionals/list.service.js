@@ -1,3 +1,4 @@
+const { fn } = require('sequelize');
 const { professionalsRepository } = require('../../repositories');
 
 module.exports.list = async (options) => {
@@ -9,6 +10,13 @@ module.exports.list = async (options) => {
     { is_deleted: false },
     { is_active: true }
   ];
+
+  query.include = [
+    {
+      association: 'consultations',
+      attributes: ['wasGood']
+    }
+  ]
 
   if (city && city !== '') {
     query.where.push({ city });
