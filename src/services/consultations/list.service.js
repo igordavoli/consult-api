@@ -4,26 +4,27 @@ module.exports.list = async (id, options, isProfessional) => {
   const { firstName, lastName, status } = options;
   const query = {};
 
-  const withProfessional = {
+  const withProfessionalData = {
     where: [{ user_id: id }],
     include: {
       association: 'professional',
       attributes: ['id', 'firstName', 'lastName', 'email', 'crp', 'city'],
     },
-    attributes: { exclude: ['wasGood', 'comment'] },
+
   }
-  const withUser = {
+  const withUserData = {
     where: [{ professional_id: id }],
     include: {
       association: 'user',
       attributes: ['id', 'firstName', 'lastName', 'email', 'telephone'],
     },
+    attributes: { exclude: ['wasGood', 'comment'] },
   }
 
   if (isProfessional) {
-    Object.assign(query, withUser)
+    Object.assign(query, withUserData)
   } else {
-    Object.assign(query, withProfessional)
+    Object.assign(query, withProfessionalData)
   }
 
   if (status && status !== '') {
