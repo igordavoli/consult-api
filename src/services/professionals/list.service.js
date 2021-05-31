@@ -1,22 +1,23 @@
-const { fn } = require('sequelize');
+const { QueryTypes } = require('sequelize');
+const db = require('../../models')
 const { professionalsRepository } = require('../../repositories');
 
 module.exports.list = async (options) => {
-  const { city, remotely } = options;
+  // const { city, remotely } = options;
 
-  const query = {};
-
-  query.where = [
-    { is_deleted: false },
-    { is_active: true }
-  ];
-
-  query.include = [
-    {
-      association: 'consultations',
-      attributes: ['wasGood']
-    }
-  ]
+  // query.include = [
+  //   {
+  //     association: 'consultations',
+  //     attributes: {
+  //       include: [
+  //         [fn('count', col('was_good')), 'wasGood'],
+  //         [fn('count', col('was_good')), 'wasBad'],
+  //         [fn('count', col('was_good')), 'total']
+  //       ]
+  //     },
+  //     group: 'id'
+  //   },
+  // ]
 
   if (city && city !== '') {
     query.where.push({ city });
@@ -26,10 +27,18 @@ module.exports.list = async (options) => {
     query.where.push({ remotely });
   }
 
-  const { count, rows } = await professionalsRepository.list(query);
+  // const { count, rows } = await professionalsRepository.list(query);
+  const users = await db.sequelize.query(
+    `SELECT * FROM "professionals" 
+    WHERE ("is_deleted" = false AND "is_active" = true)`,
+    {
+      type: QueryTypes.SELECT,
+      model: db.Professional,
+      mapToModel: true,
+    })
 
   return {
-    metadata: { total: count },
-    data: rows,
+    metadata: { total: users.length },
+    data: users,
   };
 };

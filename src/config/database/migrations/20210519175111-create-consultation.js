@@ -26,13 +26,6 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER
       },
-      // address: {
-      //   allowNull: false,
-      //   type: Sequelize.UUID,
-      //   references: { model: "professionals", key: "addresses.id" },
-      //   onUpdate: "CASCADE",
-      //   onDelete: "SET NULL",
-      // },
       reason: {
         allowNull: false,
         type: Sequelize.STRING,

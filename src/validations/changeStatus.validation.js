@@ -8,6 +8,10 @@ module.exports.changeStatus = (actualStatus, status) => {
     isValid = false;
   }
 
+  if (actualStatus === 'canceled_by_pro') {
+    isValid = false;
+  }
+
   if (actualStatus === 'concluded') {
     isValid = false;
   }
