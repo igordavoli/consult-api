@@ -101,9 +101,7 @@ module.exports = {
 
       const { isProfessional } = req.session;
 
-      const status = isProfessional
-        ? 'canceled_by_pro'
-        : 'canceled'
+      const status = 'canceled';
 
       await consultationsService.setStatus(consultationId, status);
 
