@@ -14,12 +14,12 @@ module.exports.deleteProfessional = async (id, password) => {
 
   // const isValid = await encryptor.comparePassword(password, storedUser.password);
 
-  if (!isValid) {
-    throw {
-      status: StatusCodes.UNAUTHORIZED,
-      message: messages.invalidPassword,
-    };
-  }
+  // if (!isValid) {
+  //   throw {
+  //     status: StatusCodes.UNAUTHORIZED,
+  //     message: messages.invalidPassword,
+  //   };
+  // }
 
   storedUser.isDeleted = true;
 
