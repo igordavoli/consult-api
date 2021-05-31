@@ -12,7 +12,7 @@ module.exports.deleteProfessional = async (id, password) => {
     };
   }
 
-  const isValid = await encryptor.comparePassword(password, storedUser.password);
+  // const isValid = await encryptor.comparePassword(password, storedUser.password);
 
   if (!isValid) {
     throw {
