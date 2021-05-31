@@ -7,7 +7,9 @@ module.exports = {
   list: async (req, res) => {
     try {
       const options = req.query;
+
       const id = req.paramsId;
+
       const isProfessional = req.session.isProfessional;
 
       const response = await consultationsService.list(id, options, isProfessional)
@@ -98,8 +100,6 @@ module.exports = {
   cancelate: async (req, res) => {
     try {
       const { consultationId } = req.params;
-
-      const { isProfessional } = req.session;
 
       const status = 'canceled';
 
