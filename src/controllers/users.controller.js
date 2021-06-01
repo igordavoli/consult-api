@@ -1,7 +1,7 @@
 /* eslint-disable object-shorthand */
 const { StatusCodes } = require('http-status-codes');
 const { usersService } = require('../services');
-const yup = require('yup');
+const validations = require('../validations');
 
 module.exports = {
   list: async (req, res) => {
@@ -16,7 +16,7 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -26,12 +26,14 @@ module.exports = {
   account: async (req, res) => {
     try {
       const { tokenUser } = req;
+
       const { paramsId } = req;
+
       tokenUser.id = paramsId;
 
       return res.status(StatusCodes.OK).json(tokenUser);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -40,29 +42,20 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
-      const { user } = req.body;
       const { paramsId } = req;
+
+      const { user } = req.body;
+
       user.id = paramsId;
 
-      const schema = yup.object().shape({
-        email: yup.string().email(),
-        firstName: yup.string().min(1),
-        lastName: yup.string().min(1),
-        // password: yup.string().required().min(8),
-        // newPassword: yup.string().min(8),
-      });
-
-      await schema.validate(user, {
-        abortEarly: false,
-        stripUnknown: true,
-      });
+      await validations.update(userData)
 
       const updatedUser = await usersService.update(user);
 
-      return res.status(StatusCodes.CREATED).json(updatedUser);
+      return res.status(StatusCodes.OK).json(updatedUser);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -73,6 +66,7 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { password } = req.body;
+
       const userId = req.paramsId;
 
       await usersService.deleteUser(userId, password);
@@ -80,7 +74,7 @@ module.exports = {
       return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -96,7 +90,7 @@ module.exports = {
 
       res.status(StatusCodes.OK).json(adminUser);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);

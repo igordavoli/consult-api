@@ -18,7 +18,7 @@ router.patch('/:id', isSameUser, professionalsController.update);
 router.delete('/:id', isSameUser, professionalsController.delete);
 
 // Switch status
-router.post('/:id/active-status', isSameUser, professionalsController.switchStatus);
+router.post('/:id/active-status', isSameUser, professionalsController.switchProfessionalStatus);
 
 // List consultations
 router.get('/:id/consultations', isSameUser, consultationsController.list);
@@ -31,5 +31,8 @@ router.post('/:id/consultations/:consultationId/recusation', isSameUser, consult
 
 // Conclude consultation
 router.post('/:id/consultations/:consultationId/conclusion', isSameUser, consultationsController.conclude);
+
+// Cancellation consultation
+router.post('/:id/consultations/:consultationId/cancellation', isSameUser, consultationsController.cancelate);
 
 module.exports.professionals = router;

@@ -19,6 +19,20 @@ describe('User', () => {
       expect(res.body).toHaveProperty('storedUser');
     });
 
+  it('Should NOT able to create a new user when is missing a field.',
+    async () => {
+      const res = await request(app).post('/api/v1/auth/signup')
+        .send({
+          email: 'user1@exemple.com',
+          // firstName: 'user',
+          lastName: 'doo',
+          telephone: '11123456789',
+          password: 'user123Exemple',
+        });
+
+      expect(res.status).toBe(422);
+    });
+
   it('Should NOT be able to create a new user when already exists a user with the same EMAIL.',
     async () => {
       const res = await request(app).post('/api/v1/auth/signup')

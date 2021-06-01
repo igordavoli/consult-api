@@ -2,10 +2,8 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 dotenv.config({ path: path.join(__dirname, '../../../.env') });
-dotenv.config({ path: path.join(__dirname, '../../../.env.dev') });
-dotenv.config({ path: path.join(__dirname, '../../../.env.test') });
 
-const databaseConfig = {
+module.exports = {
   production: {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -41,4 +39,3 @@ const databaseConfig = {
   }
 }
 
-module.exports = databaseConfig[process.env.NODE_ENV];

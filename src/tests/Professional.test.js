@@ -25,6 +25,24 @@ describe('Professional', () => {
       expect(res.body).toHaveProperty('token');
       expect(res.body).toHaveProperty('storedProfessional');
     });
+  it('Should NOT able to create a new user when is missing a field.',
+    async () => {
+      const res = await request(app).post('/api/v1/auth/signuppro')
+        .send({
+          firstName: 'john',
+          lastName: 'Cardio',
+          email: 'jhon1@cardiologist.com',
+          professionalField: 'Cardiologist',
+          password: '12341234',
+          city: 'são paulo',
+          // crp: '0987654321',
+          remotely: false,
+          experience: 'Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis!',
+          biography: 'Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis!'
+        });
+
+      expect(res.status).toBe(422);
+    });
 
   it('Should NOT be able to create a new user when already exists a user with the same EMAIL.',
     async () => {

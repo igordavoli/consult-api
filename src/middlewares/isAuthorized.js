@@ -1,35 +1,11 @@
 const { StatusCodes } = require('http-status-codes');
-const jwt = require('jsonwebtoken');
-const { promisify } = require('util');
-const { constants } = require('../utils');
 const { messages } = require('../helpers');
 const { usersRepository, professionalsRepository } = require('../repositories');
+const validations = require('../validations');
 
 module.exports = async (req, res, next) => {
   try {
-    let token;
-
-    if (req.headers && req.headers.authorization) {
-      const [scheme, credentials] = req.headers.authorization.split(' ');
-
-      if (scheme.match(/^Bearer$/i)) {
-        token = credentials;
-      } else {
-        throw {
-          status: StatusCodes.UNAUTHORIZED,
-          message: messages.invalidAuthFormat,
-        };
-      }
-    } else {
-      throw {
-        status: StatusCodes.UNAUTHORIZED,
-        message: messages.authMissing,
-      };
-    }
-
-    const verify = promisify(jwt.verify);
-
-    const decoded = await verify(token, constants.jwtToken);
+    const { token, decoded } = await validations.token(req.headers);
 
     const tokenUser = decoded.isProfessional
       ? await professionalsRepository.getById(decoded.id)
