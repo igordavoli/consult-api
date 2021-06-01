@@ -20,7 +20,7 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -29,11 +29,6 @@ module.exports = {
   },
 
   create: async (req, res) => {
-
-    console.log(req)
-    console.log(req.body)
-    console.log(req.headers)
-
     try {
       const consultation = req.body;
 
@@ -56,7 +51,7 @@ module.exports = {
 
       res.status(StatusCodes.CREATED).json({ storedConsultation });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -73,7 +68,7 @@ module.exports = {
 
       res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -90,7 +85,7 @@ module.exports = {
 
       res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -107,7 +102,7 @@ module.exports = {
 
       res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -119,13 +114,11 @@ module.exports = {
 
       const status = 'concluded'
 
-      console.log(consultationId)
-
       await consultationsService.setStatus(consultationId, status);
 
       res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -137,13 +130,11 @@ module.exports = {
 
       const { evaluation } = req.body;
 
-      console.log(consultationId)
-
       await consultationsService.avaliate(consultationId, evaluation);
 
       res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);

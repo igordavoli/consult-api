@@ -16,7 +16,7 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -33,7 +33,7 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json(tokenUser);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -55,7 +55,7 @@ module.exports = {
       return res.status(StatusCodes.OK).json(updatedUser);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -74,7 +74,7 @@ module.exports = {
       return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -90,7 +90,7 @@ module.exports = {
 
       res.status(StatusCodes.OK).json(adminUser);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);

@@ -16,7 +16,7 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -33,7 +33,7 @@ module.exports = {
 
       return res.status(StatusCodes.OK).json({ professional: tokenUser });
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -57,7 +57,7 @@ module.exports = {
       return res.status(StatusCodes.OK).json(updatedProfessional);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
@@ -76,7 +76,7 @@ module.exports = {
       return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
 
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)

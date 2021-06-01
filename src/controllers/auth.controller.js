@@ -10,9 +10,6 @@ module.exports = {
 
       const { email, password } = req.body;
 
-      console.log(email);
-      console.log(password);
-
       const response = await authService.signin(email, password);
 
       return res.status(StatusCodes.OK).json(response);
@@ -30,7 +27,6 @@ module.exports = {
   },
 
   signup: async (req, res) => {
-    console.log(req)
     try {
       await validations.signUp(req.body)
 
@@ -56,7 +52,6 @@ module.exports = {
   },
 
   signinPro: async (req, res) => {
-    console.log(req)
     try {
       await validations.signIn(req.body)
 
@@ -79,7 +74,6 @@ module.exports = {
   },
 
   signupPro: async (req, res) => {
-    console.log(req)
     try {
 
       await validations.signUpPro(req.body)
