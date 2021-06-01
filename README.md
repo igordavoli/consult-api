@@ -12,7 +12,7 @@ Camp's folder structure
 
 - [Documentação](https://sequelize.org/master/)
 
-- Lembrete: Para o Sequelize funcionar, você já precisa ter criado o banco que será utilizado, e depois só passar o nome desse banco no arquivo .env, a sua aplicação também vai precisar ter a lib do banco que você está utilizando, é possível ver um exemplo neste [link](https://sequelize.org/master/manual/getting-started.html) da documentação.
+- Lembrete: Para o Sequelize funcionar, você já precisa ter criado o banco que será utilizado, inclusive o banco de testes, e depois só passar os nomes desses bancos no arquivo .env, a sua aplicação também vai precisar ter a lib do banco que você está utilizando, (caso seja Postgresql o driver já está instalado) é possível ver um exemplo neste [link](https://sequelize.org/master/manual/getting-started.html) da documentação.
 
 ## Models
 
