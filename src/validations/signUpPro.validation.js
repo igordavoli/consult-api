@@ -7,6 +7,7 @@ module.exports.signUpPro = async (signUpData) => {
     email: yup.string().required().email(),
     password: yup.string().required().min(8),
     professionalField: yup.string().required(),
+    crp: yup.string().required(),
     biography: yup.string().required().min(1).max(255),
     experience: yup.string().required().min(1).max(255),
   });
