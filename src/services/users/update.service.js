@@ -1,9 +1,9 @@
-const { StatusCodes } = require("http-status-codes");
-const jwt = require("jsonwebtoken");
-const { encryptor, messages } = require("../../helpers");
-const { constants } = require("../../utils");
-const { usersRepository } = require("../../repositories");
-const { promisify } = require("util");
+const { StatusCodes } = require('http-status-codes');
+const jwt = require('jsonwebtoken');
+const { encryptor, messages } = require('../../helpers');
+const { constants } = require('../../utils');
+const { usersRepository } = require('../../repositories');
+const { promisify } = require('util');
 
 module.exports.update = async (user) => {
   const storedUser = await usersRepository.getById(user.id);
@@ -11,46 +11,38 @@ module.exports.update = async (user) => {
   if (!storedUser) {
     throw {
       status: StatusCodes.NOT_FOUND,
-      message: messages.notFound("user"),
+      message: messages.notFound('user'),
     };
   }
 
-  const valid = await encryptor.comparePassword(user.password, storedUser.password);
+  // const valid = await encryptor.comparePassword(user.password, storedUser.password);
 
-  if (!valid) {
-    throw {
-      status: StatusCodes.UNAUTHORIZED,
-      message: messages.invalidPassword,
-    };
-  }
+  // if (!valid) {
+  //   throw {
+  //     status: StatusCodes.UNAUTHORIZED,
+  //     message: messages.invalidPassword,
+  //   };
+  // }
 
-  let resp = {};
+  Object.assign(storedUser, user);
 
-  if (user.newPassword) {
-    storedUser.email = user.email;
-    storedUser.name = user.name;
-    storedUser.password = user.newPassword;
-    storedUser.isDeleted = user.isDeleted;
+  // if (user.newPassword) {
+  //   storedUser.password = user.newPassword;
+  // }
 
-    resp.updatedUser = await usersRepository.update(storedUser)
-  } else {
-    storedUser.email = user.email;
-    storedUser.name = user.name;
-    storedUser.isDeleted = user.isDeleted;
-
-    resp.updatedUser = await usersRepository.update(storedUser);
-  }
+  const updatedUser = await usersRepository.update(storedUser);
 
   const payload = {
-    id: resp.updatedUser.id,
-    email: resp.updatedUser.email,
+    id: updatedUser.id,
+    email: updatedUser.email,
   };
 
   const sign = promisify(jwt.sign);
+
   const token = await sign(payload, constants.jwtToken);
 
   return {
     token,
-    user: resp.updatedUser,
+    user: updatedUser,
   };
 };

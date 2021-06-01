@@ -1,21 +1,23 @@
-const { StatusCodes } = require("http-status-codes");
-const { usersService } = require("../services");
-const { messages } = require("../helpers");
-const yup = require("yup");
+/* eslint-disable object-shorthand */
+const { StatusCodes } = require('http-status-codes');
+const { usersService } = require('../services');
+const validations = require('../validations');
 
 module.exports = {
   list: async (req, res) => {
     try {
       const { name } = req.query;
+
       const response = await usersService.list({ name });
 
       if (!response || response.data.length === 0) {
-        return res.status(StatusCodes.NO_CONTENT).end();
+        return res.status(StatusCodes.OK).json({ metadata: { total: 0 }, data: [] });
       }
 
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -23,21 +25,16 @@ module.exports = {
   },
   account: async (req, res) => {
     try {
-      const paramsUserId = req.params.id;
-      const tokenUserId = req.user.id;
-      const isSameUser = paramsUserId === tokenUserId;
+      const { tokenUser } = req;
 
-      if (!isSameUser) {
-        throw {
-          status: StatusCodes.UNAUTHORIZED,
-          message: messages.unauthorized,
-        };
-      }
+      const { paramsId } = req;
 
-      res.status(StatusCodes.OK).json({ user: req.user })
+      tokenUser.id = paramsId;
 
+      return res.status(StatusCodes.OK).json(tokenUser);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
@@ -45,82 +42,59 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
+      const { paramsId } = req;
+
       const { user } = req.body;
-      const paramsUserId = req.paramsUserId;
 
-      user.id = paramsUserId;
+      user.id = paramsId;
 
-      const schema = yup.object().shape({
-        id: yup.string().required(),
-        email: yup.string().required().email(),
-        name: yup.string().required(),
-        password: yup.string().required(),
-        newPassword: yup.string(),
-      });
-
-      await schema.validate(user, {
-        abortEarly: false,
-        stripUnknown: true,
-      });
+      await validations.update(userData)
 
       const updatedUser = await usersService.update(user);
 
-      res.status(StatusCodes.CREATED).json(updatedUser);
-
+      return res.status(StatusCodes.OK).json(updatedUser);
     } catch (error) {
-      console.log(error);
+      // eslint-disable-next-line no-console
+      console.error(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
   },
 
-  async delete(req, res) {
+  delete: async (req, res) => {
     try {
-      const password = req.body.password;
-      const userId = req.paramsUserId;
+      const { password } = req.body;
+
+      const userId = req.paramsId;
 
       await usersService.deleteUser(userId, password);
 
-      res.status(StatusCodes.NO_CONTENT).json({});
-
+      return res.status(StatusCodes.NO_CONTENT).json({});
     } catch (error) {
-      console.log(error);
+      // eslint-disable-next-line no-console
+      console.error(error);
+
       return res
         .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
         .json(error.message);
     }
-  }
+  },
 
+  toAdmin: async (req, res) => {
+    try {
+      const id = req.params.id;
 
+      const adminUser = await usersService.toAdmin(id);
+
+      res.status(StatusCodes.OK).json(adminUser);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
+        .json(error.message);
+    }
+  },
 };
 
-// toAdmin: async (req, res) => {
-//   try {
-
-//     const { isAdmin } = req.body;
-//     const id = Number(req.params.id);
-
-//     const userData = { id, isAdmin }
-//     const schema = yup.object().shape({
-//       id: yup.number().required(),
-//       isAdmin: yup.boolean().required(),
-//     })
-
-//     await schema.validate(userData, {
-//       abortEarly: false,
-//       stripUnknown: true,
-//     });
-
-//     const adminUser = await usersService.toAdmin(userData);
-
-//     res.status(StatusCodes.OK).json(adminUser);
-
-//   } catch (error) {
-//     console.log(error);
-//     return res
-//       .status(error.status || StatusCodes.INTERNAL_SERVER_ERROR)
-//       .json(error.message);
-//   }
-
-// }

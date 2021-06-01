@@ -1,24 +1,27 @@
-const { StatusCodes } = require("http-status-codes");
-const { messages } = require("../helpers");
+const { StatusCodes } = require('http-status-codes');
+const { messages } = require('../helpers');
 
 module.exports = async (req, res, next) => {
   try {
-    const paramsUserId = req.params.id;
-    const tokenUserId = req.user.id;
-    const isSameUser = paramsUserId === tokenUserId;
 
-    if (!isSameUser) {
+    const paramsId = req.params.id;
+    const tokenId = req.tokenUser.id;
+    const isSame = paramsId === tokenId;
+
+    if (!isSame) {
       throw {
         status: StatusCodes.UNAUTHORIZED,
-        message: messages.invalidPassword,
+        message: messages.unauthorized,
       };
     }
 
-    req.paramsUserId = paramsUserId;
+    req.paramsId = paramsId;
 
     return next();
+
   } catch (error) {
     console.error(error);
+
     return res.status(error.status).json(error.message);
   }
-}
+};

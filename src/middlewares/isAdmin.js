@@ -1,22 +1,19 @@
-const { StatusCodes } = require("http-status-codes");
-const { messages } = require("../helpers");
+const { StatusCodes } = require('http-status-codes');
+const { messages } = require('../helpers');
 
 module.exports = async (req, res, next) => {
   try {
-
-    console.log(req.user)
-
-    if (!req.user.isAdmin) {
+    if (!req.tokenUser.isAdmin) {
       throw {
         status: StatusCodes.UNAUTHORIZED,
-        message: messages.unauthorized
-      }
+        message: messages.unauthorized,
+      };
     }
 
     return next();
-
   } catch (error) {
     console.error(error);
+
     return res.status(error.status).json(error.message);
   }
-}
+};

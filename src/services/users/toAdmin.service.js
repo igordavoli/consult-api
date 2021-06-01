@@ -1,19 +1,19 @@
-const { StatusCodes } = require("http-status-codes");
-const { usersRepository } = require("../../repositories");
+const { StatusCodes } = require('http-status-codes');
+const { usersRepository } = require('../../repositories');
 
-module.exports.toAdmin = async (user) => {
-  const storedUser = await usersRepository.getById(user.id);
+module.exports.toAdmin = async (id) => {
+  const storedUser = await usersRepository.getById(id);
 
   if (!storedUser) {
     throw {
       status: StatusCodes.NOT_FOUND,
-      message: messages.notFound("user"),
+      message: messages.notFound('user'),
     };
   }
 
-  storedUser.isAdmin = user.isAdmin;
+  storedUser.isAdmin = !storedUser.isAdmin;
 
   const adminUser = await usersRepository.update(storedUser);
 
   return adminUser;
-}
+};

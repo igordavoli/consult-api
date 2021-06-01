@@ -1,36 +1,36 @@
-const router = require("express").Router();
-const { usersController } = require("../controllers");
-const { isAuthorized, isAdmin, isSameUser } = require("../middlewares");
+// eslint-disable-next-line new-cap
+const router = require('express').Router();
+const { usersController, consultationsController } = require('../controllers');
+const { isAuthorized, isAdmin, isSameUser } = require('../middlewares');
 
 router.use(isAuthorized);
 
+// List users
+router.get('/', isAdmin, usersController.list);
+
 // Profile details
-router.get("/:id", isSameUser, usersController.account);
+router.get('/:id', isSameUser, usersController.account);
 
 // Profile update
-router.patch("/:id", isSameUser, usersController.update);
+router.patch('/:id', isSameUser, usersController.update);
 
 // Profile delete
-router.delete("/:id", isSameUser, usersController.delete);
+router.delete('/:id', isSameUser, usersController.delete);
 
-router.use(isAdmin);
+// Switch admin
+router.post("/:id/manage", usersController.toAdmin);
 
-// List users
-router.get("/", usersController.list);
+// List user consultations
+router.get('/:id/consultations', isSameUser, consultationsController.list);
 
-//router.patch("/:id/manage", usersController.toAdmin);
+// Create consultations
+router.post('/:id/consultations', isSameUser, consultationsController.create);
+
+// Cancel consultation
+router.post('/:id/consultations/:consultationId/cancellation', isSameUser, consultationsController.cancelate);
+
+// Avaliate consultation
+router.post('/:id/consultations/:consultationId/evaluation', isSameUser, consultationsController.avaliate);
+
 
 module.exports.users = router;
-
-/*
-endpoints de profissional
-cadastro
-login
-profile details
-profile update
-profile delete
-listar consultas agendadas da semana/mes
-listar solicitações de consultas (ver se não é antes da data atual)
-aceitar solicitação e buscar dados do usuário para entrar em contato
-recusar solicitação
-*/

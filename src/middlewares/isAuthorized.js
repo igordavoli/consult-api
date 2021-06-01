@@ -1,50 +1,36 @@
-const { StatusCodes } = require("http-status-codes");
-const jwt = require("jsonwebtoken");
-const { promisify } = require("util");
-const { constants } = require("../utils");
-const { messages } = require("../helpers");
-const { usersRepository } = require("../repositories");
+const { StatusCodes } = require('http-status-codes');
+const { messages } = require('../helpers');
+const { usersRepository, professionalsRepository } = require('../repositories');
+const validations = require('../validations');
 
 module.exports = async (req, res, next) => {
   try {
-    let token;
+    const { token, decoded } = await validations.token(req.headers);
 
-    if (req.headers && req.headers.authorization) {
-      const [scheme, credentials] = req.headers.authorization.split(" ");
+    const tokenUser = decoded.isProfessional
+      ? await professionalsRepository.getById(decoded.id)
+      : await usersRepository.getById(decoded.id);
 
-      if (scheme.match(/^Bearer$/i)) {
-        token = credentials;
-      } else {
-        throw {
-          status: StatusCodes.UNAUTHORIZED,
-          message: messages.invalidAuthFormat,
-        };
-      }
-    } else {
+    if (!tokenUser) {
       throw {
         status: StatusCodes.UNAUTHORIZED,
-        message: messages.authMissing,
+        message: messages.notFound('valid-token'),
       };
     }
 
-    const verify = promisify(jwt.verify);
-    const decoded = await verify(token, constants.jwtToken);
-    const user = await usersRepository.getById(decoded.id);
+    req.session = {
+      token,
+      id: decoded.id,
+      email: decoded.email,
+      isProfessional: decoded.isProfessional,
+    };
 
-    if (!user) {
-      throw {
-        status: StatusCodes.NOT_FOUND,
-        message: messages.notFound("user"),
-      };
-    }
-
-    req.session = { token, id: decoded.id, email: decoded.email };
-    req.user = user;
+    req.tokenUser = tokenUser;
 
     return next();
-
   } catch (error) {
     console.error(error);
+
     return res.status(error.status).json(error.message);
   }
 };
