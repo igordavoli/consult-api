@@ -22,7 +22,11 @@ module.exports = {
             StatusCodes.UNPROCESSABLE_ENTITY :
             error.status || StatusCodes.INTERNAL_SERVER_ERROR,
         )
-        .json(error.message);
+        .json({
+          name: error.name,
+          message: error.message,
+          errors: error.errors
+        });
     }
   },
 
@@ -69,7 +73,11 @@ module.exports = {
             StatusCodes.UNPROCESSABLE_ENTITY :
             error.status || StatusCodes.INTERNAL_SERVER_ERROR,
         )
-        .json(error.message);
+        .json({
+          name: error.name,
+          message: error.message,
+          errors: error.errors
+        });
     }
   },
 
