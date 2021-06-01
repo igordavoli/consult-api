@@ -112,7 +112,22 @@ describe('Professional', () => {
         });
 
       expect(res.status).toBe(404);
-      expect(res.body).toMatch('professional-not-found');
+      expect(res.body).toHaveProperty('message', 'user-not-found');
+      expect(res.body).toHaveProperty('name', 'LoginError');
+      expect(res.body).toHaveProperty('errors', ['email-not-exists']);
+    });
+  it('Should be able to NOT permit a login when missing email field.',
+    async () => {
+      const res = await request(app).post('/api/v1/auth/signinpro')
+        .send({
+          // email: 'inexistent@email.com',
+          password: '12341234',
+        });
+
+      expect(res.status).toBe(422);
+      expect(res.body).toHaveProperty('name', 'ValidationError');
+      expect(res.body).toHaveProperty('message', 'email is a required field');
+      expect(res.body).toHaveProperty('errors', ["email is a required field"]);
     });
 
   it('Should be able to NOT permit a login when inputted a incorrect password.',
@@ -124,6 +139,8 @@ describe('Professional', () => {
         });
 
       expect(res.status).toBe(401);
-      expect(res.body).toMatch('invalid-password');
+      expect(res.body).toHaveProperty('name', 'AuthorizationError');
+      expect(res.body).toHaveProperty('message', 'invalid-password');
+      expect(res.body).toHaveProperty('errors', ['wrong-password']);
     });
 });
