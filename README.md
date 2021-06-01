@@ -22,8 +22,8 @@
 - execute "yarn test" dentro do diretorio raiz do projeto
   - Se algum teste falhar será nescessario apagar os dados escritos no banco manualmente
   - Se todos os teste passarem execute as migrations com "yarn migrate"
-  - Execute os seeders com "yarn seedAll"
-  - "yarn start:dev" e a aplicação já estará rodando em ambiente de desenvolvimento 
+- Execute os seeders com "yarn seedAll"
+- "yarn start:dev" e a aplicação já estará rodando em ambiente de desenvolvimento 
 
 # Observações
 
