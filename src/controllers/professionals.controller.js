@@ -1,7 +1,7 @@
 /* eslint-disable object-shorthand */
 const { StatusCodes } = require('http-status-codes');
 const { professionalsService } = require('../services');
-const yup = require('yup');
+const validations = require('../validations');
 
 module.exports = {
   list: async (req, res) => {
@@ -48,25 +48,13 @@ module.exports = {
 
       professional.id = paramsId;
 
-      const schema = yup.object().shape({
-        email: yup.string().email(),
-        firstName: yup.string().min(1),
-        lastName: yup.string().min(1),
-        biography: yup.string().min(1),
-        // password: yup.string().required().min(8),
-        // newPassword: yup.string().min(8),
-      });
-
-      await schema.validate(professional, {
-        abortEarly: false,
-        stripUnknown: true,
-      });
+      await validations.updatePro(professional)
 
       const updatedProfessional = await professionalsService.update(
         professional
       );
 
-      return res.status(StatusCodes.CREATED).json(updatedProfessional);
+      return res.status(StatusCodes.OK).json(updatedProfessional);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -96,8 +84,9 @@ module.exports = {
     }
   },
 
-  switchStatus: async (req, res) => {
+  switchProfessionalStatus: async (req, res) => {
     const { paramsId } = req;
+
     const isActive = await professionalsService.switchStatus(paramsId);
 
     res.status(StatusCodes.OK).json({ isActive });

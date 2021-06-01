@@ -1,12 +1,13 @@
-const { QueryTypes } = require('sequelize');
-const db = require('../../models')
 const { professionalsRepository } = require('../../repositories');
 
 module.exports.list = async (options) => {
   const { city, remotely } = options;
 
   query = {
-    where: []
+    where: [
+      { is_active: true },
+      { is_deleted: false },
+    ]
   };
 
   if (city && city !== '') {
