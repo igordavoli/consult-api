@@ -11,7 +11,9 @@ module.exports.signinPro = async (email, password) => {
   if (!professional) {
     throw {
       status: StatusCodes.NOT_FOUND,
-      message: messages.notFound('professional'),
+      name: 'LoginError',
+      message: messages.notFound('user'),
+      errors: ['email-not-exists'],
     };
   }
 
@@ -20,7 +22,9 @@ module.exports.signinPro = async (email, password) => {
   if (!valid) {
     throw {
       status: StatusCodes.UNAUTHORIZED,
+      name: 'AuthorizationError',
       message: messages.invalidPassword,
+      errors: ['wrong-password'],
     };
   }
 
