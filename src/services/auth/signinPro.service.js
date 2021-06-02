@@ -28,6 +28,8 @@ module.exports.signinPro = async (email, password) => {
     };
   }
 
+  const photoURL = `https://localhost:3000/uploads/${professional.photoName}`;
+
   const payload = {
     id: professional.id,
     email: professional.email,
@@ -40,6 +42,7 @@ module.exports.signinPro = async (email, password) => {
 
   return {
     professional,
+    photoURL,
     token,
   };
 };

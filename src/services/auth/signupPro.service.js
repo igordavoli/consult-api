@@ -17,6 +17,8 @@ module.exports.signupPro = async (userData) => {
 
   const storedProfessional = await professionalsRepository.create(userData);
 
+
+
   const payload = {
     id: storedProfessional.id,
     email: storedProfessional.email,
@@ -29,6 +31,7 @@ module.exports.signupPro = async (userData) => {
 
   return {
     storedProfessional,
+    photoURL: `https://localhost:3000/uploads/${storedProfessional.photoName}`,
     token,
   };
 };

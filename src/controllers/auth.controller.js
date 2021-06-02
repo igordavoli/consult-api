@@ -57,7 +57,7 @@ module.exports = {
 
   signinPro: async (req, res) => {
     try {
-      await validations.signIn(req.body)
+      await validations.signIn(req.body);
 
       const { email, password } = req.body;
 
@@ -87,6 +87,8 @@ module.exports = {
       await validations.signUpPro(req.body)
 
       const userData = req.body;
+
+      userData.photoName = req.file.filename;
 
       const { storedProfessional, token } = await authService.signupPro(userData);
 
