@@ -49,6 +49,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      photo_name: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
       is_active: {
         allowNull: false,
         type: Sequelize.BOOLEAN,

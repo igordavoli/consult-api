@@ -52,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      photoName: {
+        type: DataTypes.STRING,
+        field: 'photo_name',
+      },
       isActive: {
         type: DataTypes.BOOLEAN,
         field: 'is_active',
