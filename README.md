@@ -28,7 +28,7 @@
 - Ronomeie o arquivo .env.exemple para .env
 - Coloque as respecivas informações no arquivo .env
 - execute "yarn test" dentro do diretorio raiz do projeto
-  - Se algum teste falhar será nescessario apagar os dados escritos no banco manualmente usando 'yarn clear:db:test'
+  - Se algum teste falhar será nescessario apagar os dados escritos no banco manualmente usando "yarn clear:db:test"
   - Se todos os teste passarem execute as migrations com "yarn migrate"
 - Execute os seeders com "yarn seedAll"
 - "yarn start:dev" e a aplicação já estará rodando em ambiente de desenvolvimento 
