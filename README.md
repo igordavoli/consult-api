@@ -1,6 +1,5 @@
 # camp-21 | Time 2
 
-<<<<<<< HEAD
 # Observações
 
 - Depois que configurar o banco de dados renomeie o arquivo '.env.exemple' para '.env' coloque os valores de acordo com o banco criado.
@@ -8,7 +7,7 @@
 - rode o comando 'yarn sequelize-cli db:migrate'
 - rode o comando 'yarn sequelize-cli db:seed:all'
 - rode o comando 'yarn start:dev'
-=======
+
 <img src="https://github.com/ajalvesneto/campioasys2fase/blob/main/CampIoasys2Fase/Resources/Assets.xcassets/logo.png"/>
 
 #
@@ -29,7 +28,7 @@
 - Ronomeie o arquivo .env.exemple para .env
 - Coloque as respecivas informações no arquivo .env
 - execute "yarn test" dentro do diretorio raiz do projeto
-  - Se algum teste falhar será nescessario apagar os dados escritos no banco manualmente
+  - Se algum teste falhar será nescessario apagar os dados escritos no banco manualmente usando 'yarn clear:db:test'
   - Se todos os teste passarem execute as migrations com "yarn migrate"
 - Execute os seeders com "yarn seedAll"
 - "yarn start:dev" e a aplicação já estará rodando em ambiente de desenvolvimento 
@@ -46,7 +45,7 @@
 
 - Lembrete: Para o Sequelize funcionar, você já precisa ter criado o banco que será utilizado, inclusive o banco de testes, e depois só passar os nomes desses bancos no arquivo .env, a sua aplicação também vai precisar ter a lib do banco que você está utilizando, (caso seja Postgresql o driver já está instalado) é possível ver um exemplo neste [link](https://sequelize.org/master/manual/getting-started.html) da documentação.
 
->>>>>>> 3ec8a291561f58ed66f5719b6794f496ecf0fdb4
+
 
 # Postman
 
