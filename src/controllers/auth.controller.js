@@ -88,7 +88,9 @@ module.exports = {
 
       const userData = req.body;
 
-      userData.photoName = req.file.filename;
+      if (req.file) {
+        userData.photoName = req.file.filename;
+      }
 
       const { storedProfessional, token } = await authService.signupPro(userData);
 

@@ -8,7 +8,7 @@
     "prestart": "NODE_ENV=production yarn sequelize-cli db:migrate",
     "start:dev": "nodemon app.js",
     "test": "jest -i --forceExit ",
-    "pretest": "NODE_ENV=test yarn sequelize-cli db:migrate",
+    "pretest": "NODE_ENV=test yarn sequelize-cli db:migrate && NODE_ENV=test yarn sequelize-cli db:seed:all",
     "posttest": "yarn clear:db:test",
     "migrate": "sequelize-cli db:migrate",
     "seedAll": "sequelize-cli db:seed:all",
