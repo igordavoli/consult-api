@@ -1,4 +1,4 @@
-const { consultationsRepository } = require('../../repositories')
+const { consultationsRepository } = require('../../repositories');
 
 module.exports.avaliate = async (id, evaluation) => {
   const consultation = await consultationsRepository.getById(id);

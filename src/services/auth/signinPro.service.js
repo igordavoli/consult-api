@@ -4,6 +4,8 @@ const { encryptor, messages } = require('../../helpers');
 const { constants } = require('../../utils');
 const { professionalsRepository } = require('../../repositories');
 const { promisify } = require('util');
+const { professionalView } = require('../../views')
+
 
 module.exports.signinPro = async (email, password) => {
   const professional = await professionalsRepository.get({ email });
@@ -28,8 +30,6 @@ module.exports.signinPro = async (email, password) => {
     };
   }
 
-  const photoURL = `https://localhost:3000/uploads/${professional.photoName}`;
-
   const payload = {
     id: professional.id,
     email: professional.email,
@@ -40,9 +40,10 @@ module.exports.signinPro = async (email, password) => {
 
   const token = await sign(payload, constants.jwtToken);
 
+
+
   return {
-    professional,
-    photoURL,
+    professional: professionalView(professional),
     token,
   };
 };
