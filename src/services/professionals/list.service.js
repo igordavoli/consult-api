@@ -1,4 +1,5 @@
 const { professionalsRepository } = require('../../repositories');
+const { professionalsView } = require('../../views');
 
 module.exports.list = async (options) => {
   const { city, remotely } = options;
@@ -20,8 +21,10 @@ module.exports.list = async (options) => {
 
   const { count, rows } = await professionalsRepository.list(query);
 
+  const professionals = professionalsView(rows);
+
   return {
     metadata: { total: count },
-    data: rows,
+    data: professionals,
   };
 };

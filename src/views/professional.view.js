@@ -1,4 +1,9 @@
 module.exports = (professional) => {
+
+  const photoURL = professional.photoName !== null
+    ? `${process.env.API_DOMAIN}:${process.env.PORT}${process.env.API_ROUTE}/uploads/${professional.photoName}`
+    : null
+
   return {
     id: professional.id,
     email: professional.email,
@@ -7,6 +12,6 @@ module.exports = (professional) => {
     city: professional.city,
     remotely: professional.remotely,
     photoName: professional.photoName,
-    photoURL: `${process.env.API_DOMAIN}:${process.env.PORT}${process.env.API_ROUTE}/uploads/${professional.photoName}`,
+    photoURL,
   }
 }
