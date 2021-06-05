@@ -1,7 +1,7 @@
 {
   "name": "camp-21",
-  "version": "1.0.0",
-  "description": "Camp's folder structure",
+  "version": "0.1.0",
+  "description": "consult-api",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node app.js",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diogo26/camp-21.git"
+    "url": "git+https://github.com/igordavoli/ioasys-camp-2021-segunda-fase-back-end.git"
   },
-  "author": "Diogo",
+  "author": "igor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/diogo26/camp-21/issues"
+    "url": "https://github.com/igordavoli/ioasys-camp-2021-segunda-fase-back-end/issues"
   },
-  "homepage": "https://github.com/diogo26/camp-21#readme",
+  "homepage": "https://github.com/igordavoli/ioasys-camp-2021-segunda-fase-back-end#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
