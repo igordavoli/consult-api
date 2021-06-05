@@ -4,6 +4,7 @@ const { messages } = require('../../helpers');
 const { constants } = require('../../utils');
 const { professionalsRepository } = require('../../repositories');
 const { promisify } = require('util');
+const { professionalView } = require('../../views');
 
 module.exports.signupPro = async (userData) => {
   const hasEmail = await professionalsRepository.get({ email: userData.email });
@@ -15,13 +16,13 @@ module.exports.signupPro = async (userData) => {
     };
   }
 
-  const storedProfessional = await professionalsRepository.create(userData);
+  const _storedProfessional = await professionalsRepository.create(userData);
 
-
+  const storedProfessional = professionalView(_storedProfessional);
 
   const payload = {
-    id: storedProfessional.id,
-    email: storedProfessional.email,
+    id: _storedProfessional.id,
+    email: _storedProfessional.email,
     isProfessional: true,
   };
 
@@ -31,7 +32,6 @@ module.exports.signupPro = async (userData) => {
 
   return {
     storedProfessional,
-    photoURL: `https://localhost:3000/uploads/${storedProfessional.photoName}`,
     token,
   };
 };
